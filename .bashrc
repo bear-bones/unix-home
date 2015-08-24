@@ -47,7 +47,7 @@ alias lldart='ls -dhlArt |grep ^d'
 
 
 # combine find's utility with ls's output formatting
-function lsfind() { find . -maxdepth 1 $* |sed -e 's/\.\///'; }
+function lsfind() { find . -maxdepth 1 $* |sed -e 's|\./||'; }
 function f() { ls $(lsfind $*); }
 function f1() { ls -1 $(lsfind $*); }
 function fa() { ls -A $(lsfind $*); }
@@ -151,14 +151,14 @@ function str2hex()
 function cd()
 {
     builtin cd $*
-    echo -ne "\e]0;$NAME$HOSTNAME:$(pwd |sed "s:$HOME:~:")\a"
+    echo -ne "\e]0;$NAME$HOSTNAME:$(pwd |sed 's|$HOME|~|')\a"
 }
 
 # reset window title after fg
 function fg()
 {
     builtin fg $*
-    echo -ne "\e]0;$NAME$HOSTNAME:$(pwd |sed "s:$HOME:~:")\a"
+    echo -ne "\e]0;$NAME$HOSTNAME:$(pwd |sed 's|$HOME|~|')\a"
 }
 
 # reset window title after pushd
@@ -171,7 +171,7 @@ function pushd()
         builtin pushd $* >/dev/null
     fi
     echo :: $( dirs | cut -s -d\  -f2- )
-    echo -ne "\e]0;$NAME$HOSTNAME:$(pwd |sed "s:$HOME:~:")\a"
+    echo -ne "\e]0;$NAME$HOSTNAME:$(pwd |sed 's|$HOME|~|')\a"
 }
 
 # reset window title after popd
@@ -179,7 +179,7 @@ function popd()
 {
     builtin popd $* >/dev/null
     echo :: $( dirs | cut -s -d\  -f2- )
-    echo -ne "\e]0;$NAME$HOSTNAME:$(pwd |sed "s:$HOME:~:")\a"
+    echo -ne "\e]0;$NAME$HOSTNAME:$(pwd |sed 's|$HOME|~|')\a"
 }
 
 # reset window title after vim
@@ -188,7 +188,7 @@ function vim()
     echo -ne "\e[8;48;84t"
     command vim $*
     echo -ne "\e[8;48;80t"
-    echo -ne "\e]0;$NAME$HOSTNAME:$(pwd |sed "s:$HOME:~:")\a"
+    echo -ne "\e]0;$NAME$HOSTNAME:$(pwd |sed 's|$HOME|~|')\a"
 }
 
 # sudo vim
@@ -197,27 +197,27 @@ function svim()
     echo -ne "\e[8;48;84t"
     sudo vim $*
     echo -ne "\e[8;48;80t"
-    echo -ne "\e]0;$NAME$HOSTNAME:$(pwd |sed "s:$HOME:~:")\a"
+    echo -ne "\e]0;$NAME$HOSTNAME:$(pwd |sed 's|$HOME|~|')\a"
 }
 
 # reset window title after ssh
 function ssh()
 {
     command ssh $*
-    echo -ne "\e]0;$NAME$HOSTNAME:$(pwd |sed "s:$HOME:~:")\a"
+    echo -ne "\e]0;$NAME$HOSTNAME:$(pwd |sed 's|$HOME|~|')\a"
 }
 
 # reset window title after su
 # function su()
 # {
-#     PWD=$(pwd |sed "s:$HOME:~:")
+#     PWD=$(pwd |sed 's|$HOME|~|')
 #     command su $*
 #     echo -ne "\e]0;$NAME$HOSTNAME:$PWD\a"
 # }
 function su()
 {
     command su $*
-    echo -ne "\e]0;$NAME$HOSTNAME:$(pwd |sed "s:$HOME:~:")\a"
+    echo -ne "\e]0;$NAME$HOSTNAME:$(pwd |sed 's|$HOME|~|')\a"
 }
 
 # reset window title after sudo
@@ -234,5 +234,5 @@ function sudo()
     fi
 
     # reset title
-    echo -ne "\e]0;$NAME$HOSTNAME:$(pwd |sed "s:$HOME:~:")\a"
+    echo -ne "\e]0;$NAME$HOSTNAME:$(pwd |sed 's|$HOME|~|')\a"
 }
