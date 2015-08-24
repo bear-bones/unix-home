@@ -28,6 +28,7 @@ if [[ -z $HOSTNAME ]]
 then
     export HOSTNAME=$(uname -n)
 fi
+export HOSTNAME=$(echo $HOSTNAME |tr '[:upper:]' '[:lower:]')
 
 
 # terminal settings
@@ -56,8 +57,8 @@ echo -ne "\e[8;48;80t"
 echo -ne "\e]0;$NAME$HOSTNAME:~\a"
 
 # prompts
-export PS1='$([[ $(jobs -s | wc -l | sed "s/^ *//") != 0 ]] && echo -n "\[\e[0;33m\][\j]\[\e[m\] "; echo -n "\[\e[1;30m\]'$NAME$HOSTNAME':\[\e[m\]\w > ")'
-export PS2="> "
+export PS1='$([[ $(jobs -s |wc -l |sed "s/^ *//") != 0 ]] && echo -n "\[\e[0;33m\][\j]\[\e[m\] "; echo -n "\[\e[1;34m\]'$NAME$HOSTNAME':\[\e[m\]\w > ")'
+export PS2='> '
 
 
 # bash settings

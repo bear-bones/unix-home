@@ -2,7 +2,7 @@
 grep_color=
 if [[ $(grep --help |grep -- --color) ]]
 then
-    grep_color='--color '
+    grep_color=--color
 fi
 grep_type=
 if [[ $(grep --help |grep -- --perl-regexp) ]]
@@ -11,7 +11,7 @@ then
 else
     grep_type=--extended-regexp
 fi
-export GREP_OPTIONS="$grep_color$grep_type"
+alias grep="grep $grep_color $grep_type"
 [[ -f /etc/DIR_COLORS ]] && eval $(dircolors -b /etc/DIR_COLORS)
 alias ls='ls --color=always'
 
