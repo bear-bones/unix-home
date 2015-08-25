@@ -165,15 +165,16 @@ colorscheme dessert
 set ruler
 
 " show file name in terminal title bar
-set titlestring=%(%{expand(\"$LOGNAME\")=='root'?'root':''}@%)%{expand(\"$HOSTNAME\")}:%{expand(\"%:p:h\")}%=%{expand(\"%:t\")}%(\ [%M%R]%)"
+set titlestring=%(%{expand(\"$LOGNAME\")=='root'?'root':''}@%)%{expand(\"$HOSTNAME\")}\ %{expand(\"%:p:h\")}%=%{expand(\"%:t\")}%(\ [%M%R]%)"
 set title
 
 " show line numbers as distance from cursor
 set relativenumber
 
 " line wrapping
+let &showbreak = '  ↳ '
 set wrap
-set showbreak=>>>\ 
+set cpoptions+=n
 set display=lastline
 
 " show line of current cursor (in current window only)
@@ -185,15 +186,15 @@ augroup currentline
 augroup end
 
 " highlight columns 80n
-function! ToggleCC()
-    if stridx(&colorcolumn, '80') != 0
-        set colorcolumn=80,160,240,320,400,480,560,640,720,800
-    else
-        set colorcolumn=0
-    endif
-endfunction
-nnoremap <silent> <leader>cc :call ToggleCC()<cr>
-call ToggleCC()
+"function! ToggleCC()
+"    if stridx(&colorcolumn, '80') != 0
+"        set colorcolumn=80,160,240,320,400,480,560,640,720,800
+"    else
+"        set colorcolumn=0
+"    endif
+"endfunction
+"nnoremap <silent> <leader>cc :call ToggleCC()<cr>
+"call ToggleCC()
 
 " show matching brackets (thanks Doug)
 set showmatch

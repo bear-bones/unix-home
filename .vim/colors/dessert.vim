@@ -39,14 +39,14 @@ highlight DiffDelete    ctermfg=darkblue    ctermbg=darkcyan    guifg=darkblue  
 highlight DiffText      ctermbg=darkred                                         guibg=darkred
 
 " other vim ui components
-highlight ColorColumn                       ctermbg=black                                   guibg=darkgrey
 highlight CursorLine                        ctermbg=NONE        cterm=underline             guibg=NONE      gui=underline
 highlight CursorLineNR                      ctermbg=black       cterm=bold,underline        guibg=darkgrey  gui=bold,underline
 highlight Error         ctermfg=black       ctermbg=darkred                 guifg=black     guibg=darkred
 highlight FoldColumn    ctermfg=grey        ctermbg=NONE                    guifg=grey      guibg=NONE
 highlight Folded        ctermfg=grey        ctermbg=NONE                    guifg=grey      guibg=NONE
 highlight IncSearch     ctermfg=black       ctermbg=darkcyan    cterm=NONE  guifg=black     guibg=darkcyan  gui=NONE
-highlight LineNr        ctermfg=darkgrey    ctermbg=black                   guifg=darkgrey  guibg=black
+highlight LineNr        ctermfg=darkcyan    ctermbg=NONE                    guifg=darkcyan  guibg=NONE
+highlight NonText       ctermfg=grey        ctermbg=NONE                    guifg=grey      guibg=NONE
 highlight Search        ctermfg=black       ctermbg=darkcyan    cterm=NONE  guifg=black     guibg=darkcyan  gui=NONE
 
 "highlight Directory    ctermfg=cyan
