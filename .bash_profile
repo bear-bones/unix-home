@@ -54,10 +54,10 @@ LC_IDENTIFICATION=$LANG
 
 # window title and size
 echo -ne "\e[8;48;80t"
-echo -ne "\e]0;$NAME$HOSTNAME:~\a"
+echo -ne "\e]0;$NAME$HOSTNAME ~\a"
 
 # prompts
-export PS1='$([[ $(jobs -s |wc -l |sed "s/^ *//") != 0 ]] && echo -n "\[\e[0;33m\][\j]\[\e[m\] "; echo -n "\[\e[1;34m\]'$NAME$HOSTNAME':\[\e[m\]\w > ")'
+export PS1='$([[ $(jobs -s |wc -l |sed "s/^ *//") != 0 ]] && echo -n "\[\e[0;33m\][\j]\[\e[m\] "; echo -n "\[\e[36m\]'$NAME$HOSTNAME'\[\e[m\] \w \[\e[36m\]>\[\e[m\] ")'
 export PS2='> '
 
 
