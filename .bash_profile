@@ -57,7 +57,12 @@ echo -ne "\e[8;48;80t"
 echo -ne "\e]0;$NAME$HOSTNAME ~\a"
 
 # prompts
-export PS1='$([[ $(jobs -s |wc -l |sed "s/^ *//") != 0 ]] && echo -n "\[\e[0;33m\][\j]\[\e[m\] "; echo -n "\[\e[36m\]'$NAME$HOSTNAME'\[\e[m\] \w \[\e[36m\]>\[\e[m\] ")'
+if [[ $LOGNAME == root ]]
+then
+    export PS1='$([[ $(jobs -s |wc -l |sed "s/^ *//") != 0 ]] && echo -n "\[\e[0;33m\][\j]\[\e[m\] "; echo -n "\[\e[31m\]'$NAME$HOSTNAME'\[\e[m\] \w \[\e[31m\]>\[\e[m\] ")'
+else
+    export PS1='$([[ $(jobs -s |wc -l |sed "s/^ *//") != 0 ]] && echo -n "\[\e[0;33m\][\j]\[\e[m\] "; echo -n "\[\e[36m\]'$NAME$HOSTNAME'\[\e[m\] \w \[\e[36m\]>\[\e[m\] ")'
+fi
 export PS2='> '
 
 
