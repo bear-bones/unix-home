@@ -165,7 +165,13 @@ colorscheme dessert
 set ruler
 
 " show file name in terminal title bar
-set titlestring=%(%{expand('$LOGNAME')=='root'?'root':''}@%)%{expand('$HOSTNAME')}\ %{substitute(expand('%:p:h'),expand('$HOME'),'~','g')}%=%{expand('%:t')}%(\ [%M%R]%)"
+let user = expand('$LOGNAME') == 'root' ? 'root@' : ''
+let host = expand('$HOSTNAME')
+let home = expand('$HOME')
+let &titleold = user . host . ' ' . substitute(getcwd(), home, '~', '')
+let &titlestring = user . host .
+                 \ " %{substitute(expand('%:p:h'), '" . home .
+                 \ "', '~', '')}%=%{expand('%:t')}%( [%M%R]%)"
 set title
 
 " show line numbers as distance from cursor

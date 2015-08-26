@@ -180,13 +180,12 @@ function popd()
     echo -ne "\e]0;$NAME$HOSTNAME $(pwd |sed "s|$HOME|~|")\a"
 }
 
-# reset window title after vim
+# reset window size after vim
 function vim()
 {
     echo -ne "\e[8;48;84t"
     command vim $*
     echo -ne "\e[8;48;80t"
-    echo -ne "\e]0;$NAME$HOSTNAME $(pwd |sed "s|$HOME|~|")\a"
 }
 
 # sudo vim
@@ -195,7 +194,6 @@ function svim()
     echo -ne "\e[8;48;84t"
     sudo vim $*
     echo -ne "\e[8;48;80t"
-    echo -ne "\e]0;$NAME$HOSTNAME $(pwd |sed "s|$HOME|~|")\a"
 }
 
 # reset window title after ssh
