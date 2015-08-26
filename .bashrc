@@ -96,7 +96,6 @@ alias fms003='ssh 172.16.1.55'
 alias fms004='ssh 172.16.1.93'
 alias fmschar='ssh 172.16.1.94'
 alias fmscommon='ssh 172.16.1.58'
-alias fmsdirect='ssh 10.1.1.201'
 alias fmslatex='ssh 172.16.1.234'
 alias fmsportal='ssh 10.1.1.200'
 alias freecheck='ssh 172.16.7.1'
@@ -104,7 +103,6 @@ alias freedev='ssh 172.16.1.5'
 alias freefin='ssh 172.16.1.91'
 alias freeops='ssh 172.16.1.1'
 alias freewebdb='ssh 172.16.1.243'
-alias newportal='ssh 10.1.1.199'
 
 
 
