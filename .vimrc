@@ -165,7 +165,7 @@ colorscheme dessert
 set ruler
 
 " show file name in terminal title bar
-set titlestring=%(%{expand(\"$LOGNAME\")=='root'?'root':''}@%)%{expand(\"$HOSTNAME\")}\ %{expand(\"%:p:h\")}%=%{expand(\"%:t\")}%(\ [%M%R]%)"
+set titlestring=%(%{expand('$LOGNAME')=='root'?'root':''}@%)%{expand('$HOSTNAME')}\ %{substitute(expand('%:p:h'),expand('$HOME'),'~','g')}%=%{expand('%:t')}%(\ [%M%R]%)"
 set title
 
 " show line numbers as distance from cursor
