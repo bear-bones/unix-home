@@ -1,6 +1,6 @@
 " Vim color file
-" Maintainer:	James brown <jbrown@ccccorp.com>
-" Last Change:	2015-01-28
+" Maintainer:	James White <jwhite@ccccorp.com>
+" Last Change:	2015-08-27
 " Based On:	http://hans.fugal.net/vim/colors/desert.vim
 
 set background=dark
@@ -13,24 +13,25 @@ let g:colors_name="dessert"
 
 
 " color terminal definitions
-highlight Normal    ctermfg=lightgrey   ctermbg=NONE   guifg=lightgrey guibg=black
+highlight Normal    ctermfg=gray    ctermbg=NONE    guifg=gray  guibg=black
 
 " literals
-highlight Number    ctermfg=darkred     guifg=darkred
-highlight String    ctermfg=darkred     guifg=darkred
-highlight Delimiter ctermfg=lightgrey   guifg=lightgrey
+highlight Number    ctermfg=darkred guifg=darkred
+highlight String    ctermfg=darkred guifg=darkred
+highlight Delimiter ctermfg=gray    guifg=gray
 
 " basic syntax components
-highlight Comment       ctermfg=lightcyan               guifg=lightcyan
-highlight Conditional   ctermfg=brown   cterm=underline guifg=brown gui=underline
-highlight Function      ctermfg=brown   cterm=underline guifg=brown gui=underline
-highlight Identifier    ctermfg=brown   cterm=underline guifg=brown gui=underline
-highlight Keyword       ctermfg=brown                   guifg=brown
-highlight Operator      ctermfg=white                   guifg=white
-highlight PreProc       ctermfg=white                   guifg=white
-highlight Repeat        ctermfg=brown   cterm=underline guifg=brown gui=underline
-highlight Special       ctermfg=brown   cterm=underline guifg=brown gui=underline
-highlight Statement     ctermfg=brown                   guifg=brown
+highlight Comment       ctermfg=darkcyan            guifg=darkcyan
+highlight Conditional   ctermfg=brown   cterm=bold  guifg=brown gui=bold
+highlight Function      ctermfg=brown   cterm=bold  guifg=brown gui=bold
+highlight Identifier    ctermfg=brown   cterm=bold  guifg=brown gui=bold
+highlight Keyword       ctermfg=brown               guifg=brown
+highlight Operator      ctermfg=white               guifg=white
+highlight PreProc       ctermfg=white               guifg=white
+highlight Repeat        ctermfg=brown   cterm=bold  guifg=brown gui=bold
+highlight Special       ctermfg=brown   cterm=bold  guifg=brown gui=bold
+highlight Statement     ctermfg=brown               guifg=brown
+highlight Type          ctermfg=brown   cterm=bold  guifg=brown gui=bold
 
 " diffs
 highlight DiffAdd       ctermbg=lightblue                                       guibg=lightblue
@@ -40,18 +41,18 @@ highlight DiffText      ctermbg=darkred                                         
 
 " other vim ui components
 highlight CursorLine                        ctermbg=NONE        cterm=underline             guibg=NONE      gui=underline
-highlight CursorLineNR                      ctermbg=black       cterm=bold,underline        guibg=darkgrey  gui=bold,underline
+highlight CursorLineNR                      ctermbg=NONE        cterm=bold,underline        guibg=darkgray  gui=bold,underline
 highlight Error         ctermfg=black       ctermbg=darkred                 guifg=black     guibg=darkred
-highlight FoldColumn    ctermfg=grey        ctermbg=NONE                    guifg=grey      guibg=NONE
-highlight Folded        ctermfg=grey        ctermbg=NONE                    guifg=grey      guibg=NONE
+highlight FoldColumn    ctermfg=gray        ctermbg=NONE                    guifg=gray      guibg=NONE
+highlight Folded        ctermfg=gray        ctermbg=NONE                    guifg=gray      guibg=NONE
 highlight IncSearch     ctermfg=black       ctermbg=darkcyan    cterm=NONE  guifg=black     guibg=darkcyan  gui=NONE
 highlight LineNr        ctermfg=darkcyan    ctermbg=NONE                    guifg=darkcyan  guibg=NONE
-highlight NonText       ctermfg=grey        ctermbg=NONE                    guifg=grey      guibg=NONE
+highlight NonText       ctermfg=gray        ctermbg=NONE                    guifg=gray      guibg=NONE
 highlight Search        ctermfg=black       ctermbg=darkcyan    cterm=NONE  guifg=black     guibg=darkcyan  gui=NONE
 
 "highlight Directory    ctermfg=cyan
 "highlight Ignore       ctermfg=7
-"highlight Ignore       ctermfg=darkgrey
+"highlight Ignore       ctermfg=darkgray
 "highlight ModeMsg      cterm=NONE ctermfg=brown
 "highlight MoreMsg      ctermfg=darkgreen
 "highlight NonText      ctermfg=darkblue

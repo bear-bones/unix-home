@@ -3,7 +3,7 @@
 " Filename extensions:  *.p (collides with Pascal),
 "                       *.i (collides with assembler)
 " Maintainer:           James White <jwhite@ccccorp.com>
-" Last Change:          Wed Apr 12 08:55:35 EST 2006
+" Last Change:          2015-08-27
 
 setlocal iskeyword=@,48-57,_,-,!,#,$,%
 syn case ignore
@@ -214,12 +214,10 @@ syn keyword ProgressReserved like
 syn keyword ProgressReserved line-count[er]
 syn keyword ProgressReserved listi[ng]
 syn keyword ProgressReserved locked
-syn keyword ProgressReserved longchar
 syn keyword ProgressReserved lookup
 syn keyword ProgressReserved machine-class
 syn keyword ProgressReserved map
 syn keyword ProgressReserved member
-syn keyword ProgressReserved memptr
 syn keyword ProgressReserved message
 syn keyword ProgressReserved message-lines
 syn keyword ProgressReserved mouse
@@ -334,12 +332,9 @@ syn keyword ProgressReserved socket
 syn keyword ProgressReserved some
 syn keyword ProgressReserved space
 syn keyword ProgressReserved status
-syn keyword ProgressReserved stream
 syn keyword ProgressReserved stream-io
 syn keyword ProgressReserved string-xref
 syn keyword ProgressReserved system-dialog
-syn keyword ProgressReserved table
-syn keyword ProgressReserved temp-table
 syn keyword ProgressReserved term
 syn keyword ProgressReserved term[inal]
 syn keyword ProgressReserved text
@@ -525,7 +520,6 @@ syn keyword ProgressKeyword box
 syn keyword ProgressKeyword box-select[able]
 syn keyword ProgressKeyword browse
 syn keyword ProgressKeyword browse-header
-syn keyword ProgressKeyword buffer
 syn keyword ProgressKeyword buffer-chars
 syn keyword ProgressKeyword buffer-copy
 syn keyword ProgressKeyword buffer-compare
@@ -744,7 +738,6 @@ syn keyword ProgressKeyword grid-unit-width-char[s]
 syn keyword ProgressKeyword grid-unit-width-pixe[ls]
 syn keyword ProgressKeyword grid-visible
 syn keyword ProgressKeyword gt
-syn keyword ProgressKeyword handle
 syn keyword ProgressKeyword height
 syn keyword ProgressKeyword height[-chars]
 syn keyword ProgressKeyword height-p[ixels]
@@ -1151,6 +1144,7 @@ syn keyword ProgressKeyword valid-handle
 syn keyword ProgressKeyword validate
 syn keyword ProgressKeyword validate-condition
 syn keyword ProgressKeyword validate-message
+syn keyword ProgressKeyword var[iable]
 syn keyword ProgressKeyword vert[ical]
 syn keyword ProgressKeyword virtual-height
 syn keyword ProgressKeyword virtual-height-c[hars]
@@ -1183,15 +1177,20 @@ syn keyword ProgressKeyword yes-no-cancel
 syn keyword ProgressKeyword _dcm
 
 " types
+syn keyword ProgressType buffer
 syn keyword ProgressType char[acter]
 syn keyword ProgressType da[te]
 syn keyword ProgressType dec[imal]
 syn keyword ProgressType handle
 syn keyword ProgressType int[eger]
 syn keyword ProgressType log[ical]
+syn keyword ProgressType longchar
+syn keyword ProgressType memptr
 syn keyword ProgressType recid
 syn keyword ProgressType rowid
-syn keyword ProgressType var[iable]
+syn keyword ProgressType stream
+syn keyword ProgressType table
+syn keyword ProgressType temp-table
 
 " control structures
 " note that for, as in "define input-output parameter table for" is a keyword
@@ -1254,7 +1253,7 @@ HiLink ProgressSpaceError       Error
 HiLink ProgressString           String
 HiLink ProgressTodo             Todo
 HiLink ProgressTrailingTabError Error
-HiLink ProgressType             Statement
+HiLink ProgressType             Type
 HiLink ProgressXML              Keyword
 delcommand HiLink
 
