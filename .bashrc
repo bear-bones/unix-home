@@ -101,6 +101,7 @@ alias fmsportal='ssh 10.1.1.200'
 alias freecheck='ssh 172.16.7.1'
 alias freedev='ssh 172.16.1.5'
 alias freefin='ssh 172.16.1.91'
+alias freeocr='ssh 172.16.1.149'
 alias freeops='ssh 172.16.1.1'
 alias freewebdb='ssh 172.16.1.243'
 
