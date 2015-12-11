@@ -104,6 +104,7 @@ alias freefin='ssh 172.16.1.91'
 alias freeocr='ssh 172.16.1.149'
 alias freeops='ssh 172.16.1.1'
 alias freewebdb='ssh 172.16.1.243'
+alias newlatex='ssh 172.16.1.200'
 
 
 
