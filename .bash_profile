@@ -97,7 +97,10 @@ rm -f .ssh/config
 if [[ -f .ssh/local_config ]]
 then
     cat .ssh/global_config .ssh/local_config >.ssh/config
-else
+elif [[ -f .ssh/global_config ]]
+then
     cp .ssh/global_config .ssh/config
+else
+    touch .ssh/config
 fi
 chmod 644 .ssh/config
