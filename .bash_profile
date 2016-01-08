@@ -18,8 +18,8 @@ if [[ $LOGNAME == root ]]
 then
     NAME=$LOGNAME@
     export HOME=~jwhite
-    cd
 fi
+cd
 
 
 # get host name if we don't have it already
