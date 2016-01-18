@@ -116,8 +116,7 @@ alias x=exit
 
 
 # remove a file's contents, creating it if need be
-function truncate()
-{
+function truncate() {
     for file in $*
     do
         echo -n >$file
@@ -127,13 +126,11 @@ function truncate()
 
 
 # allow find options for ls
-function lf()
-{
+function lf() {
     ls $(find $*)
 }
 
-function llf()
-{
+function llf() {
     ls -l $(find $*)
 }
 
@@ -142,28 +139,24 @@ function llf()
 # functions to make sure the window title is always [root@]server:pwd
 
 # convert input string to hex
-function str2hex()
-{
+function str2hex() {
     echo -n $1 |xxd |tr ' ' "\n" |sed -n "/^....$/p" |tr -d "\n"
 }
 
 # reset window title after cd
-function cd()
-{
+function cd() {
     builtin cd $*
     echo -ne "\e]0;$NAME$HOSTNAME $(pwd |sed "s|$HOME|~|")\a"
 }
 
 # reset window title after fg
-function fg()
-{
+function fg() {
     builtin fg $*
     echo -ne "\e]0;$NAME$HOSTNAME $(pwd |sed "s|$HOME|~|")\a"
 }
 
 # reset window title after pushd
-function pushd()
-{
+function pushd() {
     if [[ $# == 0 ]]
     then
         builtin pushd ~ >/dev/null
@@ -175,32 +168,39 @@ function pushd()
 }
 
 # reset window title after popd
-function popd()
-{
+function popd() {
     builtin popd $* >/dev/null
     echo :: $( dirs | cut -s -d\  -f2- )
     echo -ne "\e]0;$NAME$HOSTNAME $(pwd |sed "s|$HOME|~|")\a"
 }
 
-# reset window size after vim
-function vim()
-{
+# resize window for vim
+# the left four columns are for relative numbering, so it needs 84 columns total
+function vim() {
     echo -ne "\e[8;48;84t"
     command vim $*
     echo -ne "\e[8;48;80t"
 }
 
 # sudo vim
-function svim()
-{
+# the left four columns are for relative numbering, so it needs 84 columns total
+function svim() {
     echo -ne "\e[8;48;84t"
     sudo vim $*
     echo -ne "\e[8;48;80t"
 }
 
+# vimdiff
+# the left four columns of each file are for relative numbering, and the middle
+# column is the split separator, so it needs 169 columns total
+function vimdiff() {
+    echo -ne "\e[8;48;169t"
+    vimdiff $*
+    echo -ne "\e[8;48;80t"
+}
+
 # reset window title after ssh
-function ssh()
-{
+function ssh() {
     command ssh $*
     echo -ne "\e]0;$NAME$HOSTNAME $(pwd |sed "s|$HOME|~|")\a"
 }
@@ -212,8 +212,7 @@ function ssh()
 #     command su $*
 #     echo -ne "\e]0;$NAME$HOSTNAME:$PWD\a"
 # }
-function su()
-{
+function su() {
     command su $*
     echo -ne "\e]0;$NAME$HOSTNAME $(pwd |sed "s|$HOME|~|")\a"
 }
@@ -221,8 +220,7 @@ function su()
 # reset window title after sudo
 # translate `sudo -i` to `sudo su -` on systems that don't support -i
 dashi=$(command sudo -h 2>&1 |grep -- -i)
-function sudo()
-{
+function sudo() {
     # translate -i
     if [[ $1 == '-i' && -z $dashi ]]
     then
