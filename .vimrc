@@ -131,6 +131,22 @@ vnoremap ZZ <esc>:w<cr>gv
 vnoremap ZX <esc>ZZ
 vnoremap ZQ <esc>ZQ
 
+" read file whose name is under cursor
+function! Readfile()
+    let cfile = expand('<cfile>')
+    let files = globpath(&path, cfile, 0, 1)
+    if empty(files)
+        echoerr 'File ' . cfile . " doesn't exist"
+    else
+        normal oFILE>>>
+        normal o<<<FILE
+        normal k
+        execute 'read' files[0]
+    endif
+endfunction
+inoremap <silent> grf <esc>:call Readfile()<cr>a
+nnoremap <silent> grf      :call Readfile()<cr>
+
 
 
 " splits
