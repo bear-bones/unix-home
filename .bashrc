@@ -88,23 +88,23 @@ alias pdtmp='pushd /tmp/jwhite'
 
 
 # ssh aliases
-alias cccdata='ssh 172.16.1.22'
-alias checkdev='ssh 172.16.1.17'
-alias fms001='ssh 172.16.1.57'
-alias fms002='ssh 172.16.1.56'
-alias fms003='ssh 172.16.1.55'
-alias fms004='ssh 172.16.1.93'
-alias fmschar='ssh 172.16.1.94'
-alias fmscommon='ssh 172.16.1.58'
-alias fmslatex='ssh 172.16.1.234'
-alias fmsportal='ssh 10.1.1.200'
-alias freecheck='ssh 172.16.7.1'
-alias freedev='ssh 172.16.1.5'
-alias freefin='ssh 172.16.1.91'
-alias freeocr='ssh 172.16.1.149'
-alias freeops='ssh 172.16.1.1'
-alias freewebdb='ssh 172.16.1.243'
-alias newlatex='ssh 172.16.1.200'
+alias cccdata='ssh cccdata'
+alias checkdev='ssh checkdev'
+alias fms001='ssh fms001'
+alias fms002='ssh fms002'
+alias fms003='ssh fms003'
+alias fms004='ssh fms004'
+alias fmschar='ssh fmschar'
+alias fmscommon='ssh fmscommon'
+alias fmslatex='ssh fmslatex'
+alias fmsportal='ssh fmsportal'
+alias freecheck='ssh freecheck'
+alias freedev='ssh freedev'
+alias freefin='ssh freefin'
+alias freeocr='ssh freeocr'
+alias freeops='ssh freeops'
+alias freewebdb='ssh freewebdb'
+alias newlatex='ssh newlatex'
 
 
 
@@ -183,7 +183,6 @@ function vim() {
 }
 
 # sudo vim
-# the left four columns are for relative numbering, so it needs 84 columns total
 function svim() {
     echo -ne "\e[8;48;84t"
     sudo vim $*

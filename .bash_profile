@@ -1,17 +1,16 @@
+## James White's magnificent .bash_profile file
+
+
+## Reasons to not execute this script
 # only source once
 [[ $PROFILE_SOURCED ]] && return
 export PROFILE_SOURCED=true
 
+# redirect winfast logins
+[[ -f ~/.winfastrc ]] && source ~/.winfastrc
 
 
-# clean up temp files
-rm -f encworkfile* /tmp/jwhite/* /tmp/texout/jwhite* 2>/dev/null
-
-
-# direct winfast logins to the appropriate menu
-[[ -f .winfastrc ]] && source .winfastrc
-
-
+## Names
 # root or not root
 NAME=
 if [[ $LOGNAME == root ]]
@@ -20,7 +19,6 @@ then
     export HOME=~jwhite
 fi
 cd
-
 
 # get host name if we don't have it already
 export HOSTNAME=${HOSTNAME##*@}
@@ -31,31 +29,32 @@ fi
 export HOSTNAME=$(echo $HOSTNAME |tr '[:upper:]' '[:lower:]')
 
 
-# terminal settings
-
+## Terminal settings
 # xterm
 export TERM=xterm
 export TERMINAL=$TERM
 
 # utf8
-LANG=en_US.utf8
-LC_CTYPE=$LANG
-LC_NUMERIC=$LANG
-LC_TIME=$LANG
-LC_COLLATE=$LANG
-LC_MONETARY=$LANG
-LC_MESSAGES=$LANG
-LC_PAPER=$LANG
-LC_NAME=$LANG
-LC_ADDRESS=$LANG
-LC_TELEPHONE=$LANG
-LC_MEASUREMENT=$LANG
-LC_IDENTIFICATION=$LANG
+export LANG=en_US.utf8
+export LC_CTYPE=$LANG
+export LC_NUMERIC=$LANG
+export LC_TIME=$LANG
+export LC_COLLATE=$LANG
+export LC_MONETARY=$LANG
+export LC_MESSAGES=$LANG
+export LC_PAPER=$LANG
+export LC_NAME=$LANG
+export LC_ADDRESS=$LANG
+export LC_TELEPHONE=$LANG
+export LC_MEASUREMENT=$LANG
+export LC_IDENTIFICATION=$LANG
 
 # window title and size
 echo -ne "\e[8;48;80t"
 echo -ne "\e]0;$NAME$HOSTNAME ~\a"
 
+
+## Bash settings
 # prompts
 if [[ $LOGNAME == root ]]
 then
@@ -65,42 +64,38 @@ else
 fi
 export PS2='> '
 
-
-# bash settings
-
-# add ~/bin and current working directory to path
-PATH=$PATH:~/bin:.
-
 # ignore case when globbing
 shopt -s nocaseglob
+
+# vi-style command line editing
+set -o vi
+
+# add ~/bin and current working directory to path
+export PATH=$PATH:~/bin:.
 
 # history settings
 export HISTTIMEFORMAT='%F %T  '
 export HISTCONTROL=ignoredups
 export HISTIGNORE="c:exit:fg:l:ll:ls:sudo -i:which *:x"
 
-# vi-style command line editing
-set -o vi
-
 # aliases
-[[ -f .bashrc ]] && source .bashrc
+[[ -f ~/.bashrc ]] && source ~/.bashrc
 
 
-# local settings
-
+## Server-local settings
 # bash
-[[ -f .local_profile ]] && source .local_profile
-[[ -f .localrc ]] && source .localrc
+[[ -f ~/.local_profile ]] && source ~/.local_profile
+[[ -f ~/.localrc ]] && source ~/.localrc
 
 # ssh
-rm -f .ssh/config
-if [[ -f .ssh/local_config ]]
+rm -f ~/.ssh/config
+if [[ -f ~/.ssh/local_config ]]
 then
-    cat .ssh/global_config .ssh/local_config >.ssh/config
-elif [[ -f .ssh/global_config ]]
+    cat ~/.ssh/global_config ~/.ssh/local_config >~/.ssh/config
+elif [[ -f ~/.ssh/global_config ]]
 then
-    cp .ssh/global_config .ssh/config
+    cp ~/.ssh/global_config ~/.ssh/config
 else
-    touch .ssh/config
+    touch ~/.ssh/config
 fi
-chmod 644 .ssh/config
+chmod 644 ~/.ssh/config
