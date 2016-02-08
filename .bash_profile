@@ -7,7 +7,7 @@
 export PROFILE_SOURCED=true
 
 # redirect winfast logins
-[[ -f ~/.winfastrc ]] && source ~/.winfastrc
+[[ -f .winfastrc ]] && source .winfastrc
 
 
 ## Names
