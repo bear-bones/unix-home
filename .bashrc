@@ -104,6 +104,7 @@ alias newlatex='ssh newlatex'
 
 # miscellaneous commands
 alias c=clear
+alias fgr=finger
 alias pd=pushd
 alias x=exit
 
