@@ -77,6 +77,7 @@ function fldart() { ls -dhlArt $(lsfind $* -type d); }
 
 # quick dir change
 alias cdbin='cd /usr/local/bin'
+alias cdlog='cd /var/log'
 alias cdsrc='cd /usr/local/src'
 alias cdtmp='cd /tmp/jwhite'
 alias pdbin='pushd /usr/local/bin'
