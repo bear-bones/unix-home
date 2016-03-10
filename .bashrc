@@ -81,6 +81,7 @@ alias cdlog='cd /var/log'
 alias cdsrc='cd /usr/local/src'
 alias cdtmp='cd /tmp/jwhite'
 alias pdbin='pushd /usr/local/bin'
+alias pdlog='pushd /var/log'
 alias pdsrc='pushd /usr/local/src'
 alias pdtmp='pushd /tmp/jwhite'
 
