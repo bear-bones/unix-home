@@ -3,14 +3,14 @@
 grep_color=
 if [[ -n $(grep --help |grep -- --color) ]]
 then
-    grep_color=--color
+   grep_color=--color
 fi
 grep_type=
 if [[ -n $(grep --help |grep -- --perl-regexp) ]]
 then
-    grep_type=--perl-regexp
+   grep_type=--perl-regexp
 else
-    grep_type=--extended-regexp
+   grep_type=--extended-regexp
 fi
 alias grep="grep $grep_color $grep_type"
 
@@ -114,121 +114,121 @@ alias x=exit
 ## Functions
 # remove a file's contents, creating it if need be
 function truncate() {
-    for file in $*
-    do
-        echo -n >$file
-    done
+   for file in $*
+   do
+      echo -n >$file
+   done
 }
 
 # allow find options for ls
 function lf() {
-    ls $(find $*)
+   ls $(find $*)
 }
 function llf() {
-    ls -l $(find $*)
+   ls -l $(find $*)
 }
 
 # convert input string to hex
 function str2hex() {
-    echo -n $1 |xxd |tr ' ' "\n" |sed -n "/^....$/p" |tr -d "\n"
+   echo -n $1 |xxd |tr ' ' "\n" |sed -n "/^....$/p" |tr -d "\n"
 }
 
 # functions to make sure the window title is always [root@]server:pwd and
 # that the terminal size is always 80x48
 function term-set-caption() {
-    caption="$NAME$HOSTNAME $(pwd |sed "s|$HOME|~|")"
-    if [[ $# == 1 ]]
-    then
-        caption="$1"
-    fi
-    echo -ne "\e]0;$caption\a"
+   caption="$NAME$HOSTNAME $(pwd |sed "s|$HOME|~|")"
+   if [[ $# == 1 ]]
+   then
+      caption="$1"
+   fi
+   echo -ne "\e]0;$caption\a"
 }
 function term-set-cols() {
-    cols=80
-    if [[ $# == 1 ]]
-    then
-        cols=$1
-    fi
-    echo -ne "\e[8;48;${cols}t"
+   cols=80
+   if [[ $# == 1 ]]
+   then
+      cols=$1
+   fi
+   echo -ne "\e[8;48;${cols}t"
 }
 function cd() {
-    builtin cd $*
-    term-set-caption
+   builtin cd $*
+   term-set-caption
 }
 function fg() {
-    # give vim/vimdiff the terminal size they need before reviving
-    vim=[[ -n $(jobs |grep '\+' |grep --word-regexp 'vim|view') ]]
-    vimdiff=[[ -n $(jobs $1 |grep --word-regexp 'vimdiff') ]]
-    if [[ $vim ]]
-    then
-        term-set-cols 84
-    elif [[ $vimdiff ]]
-    then
-        term-set-cols 169
-    fi
-    builtin fg $1
-    term-set-caption
-    if [[ $vim || $vimdiff ]]
-    then
-        term-set-cols
-    fi
+   # give vim/vimdiff the terminal size they need before reviving
+   vim=[[ -n $(jobs |grep '\+' |grep --word-regexp 'vim|view') ]]
+   vimdiff=[[ -n $(jobs $1 |grep --word-regexp 'vimdiff') ]]
+   if [[ $vim ]]
+   then
+      term-set-cols 84
+   elif [[ $vimdiff ]]
+   then
+      term-set-cols 169
+   fi
+   builtin fg $1
+   term-set-caption
+   if [[ $vim || $vimdiff ]]
+   then
+      term-set-cols
+   fi
 }
 function pushd() {
-    if [[ $# == 0 ]]
-    then
-        builtin pushd ~ >/dev/null
-    else
-        builtin pushd $* >/dev/null
-    fi
-    echo :: $(dirs |cut -s -d' ' -f2-)
-    term-set-caption
+   if [[ $# == 0 ]]
+   then
+      builtin pushd ~ >/dev/null
+   else
+      builtin pushd $* >/dev/null
+   fi
+   echo :: $(dirs |cut -s -d' ' -f2-)
+   term-set-caption
 }
 function popd() {
-    builtin popd $* >/dev/null
-    echo :: $(dirs |cut -s -d' ' -f2-)
-    term-set-caption
+   builtin popd $* >/dev/null
+   echo :: $(dirs |cut -s -d' ' -f2-)
+   term-set-caption
 }
 function vim() {
-    # relative numbering uses the left four columns, so it needs 84 columns
-    term-set-cols 84
-    command vim $*
-    term-set-cols
+   # relative numbering uses the left four columns, so it needs 84 columns
+   term-set-cols 84
+   command vim $*
+   term-set-cols
 }
 function svim() {
-    term-set-cols 84
-    sudo vim $*
-    term-set-cols
+   term-set-cols 84
+   sudo vim $*
+   term-set-cols
 }
 function vimdiff() {
-    # relative numbering uses the left four columns of each file, and the middle
-    # column is the split separator, so it needs 169 columns
-    term-set-cols 169
-    vimdiff $*
-    term-set-cols
+   # relative numbering uses the left four columns of each file, and the middle
+   # column is the split separator, so it needs 169 columns
+   term-set-cols 169
+   vimdiff $*
+   term-set-cols
 }
 function svimdiff() {
-    term-set-cols 169
-    sudo vimdiff $*
-    term-set-cols
+   term-set-cols 169
+   sudo vimdiff $*
+   term-set-cols
 }
 function ssh() {
-    command ssh $*
-    term-set-cols
-    term-set-caption
+   command ssh $*
+   term-set-cols
+   term-set-caption
 }
 function su() {
-    command su $*
-    term-set-cols
-    term-set-caption
+   command su $*
+   term-set-cols
+   term-set-caption
 }
 function sudo() {
-    # translate `sudo -i` to `sudo su -` on systems that don't support -i
-    if [[ $1 == '-i' && -z $(command sudo --help 2>&1 |grep -- -i) ]]
-    then
-        command sudo su -
-    else
-        command sudo $*
-    fi
-    term-set-cols
-    term-set-caption
+   # translate `sudo -i` to `sudo su -` on systems that don't support -i
+   if [[ $1 == '-i' && -z $(command sudo --help 2>&1 |grep -- -i) ]]
+   then
+      command sudo su -
+   else
+      command sudo $*
+   fi
+   term-set-cols
+   term-set-caption
 }

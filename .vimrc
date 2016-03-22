@@ -3,26 +3,26 @@
 " os-specific crap (get this out of the way so we never have to think about it
 " again
 if has('win32') || has('win64')
-    let $SEP = '\'
-    if $HOME =~ '/'  " unix-style paths means running under msysgit
-        let vimdir = '.vim'
-        source ~/.gvimrc
-    else
-        let vimdir = 'vimfiles'
-    endif
+   let $SEP = '\'
+   if $HOME =~ '/'  " unix-style paths means running under msysgit
+      let vimdir = '.vim'
+      source ~/.gvimrc
+   else
+      let vimdir = 'vimfiles'
+   endif
 else " *nix
-    let $SEP = '/'
-    let vimdir = '.vim'
-    source ~/.vim/scripts/termcap.vim
+   let $SEP = '/'
+   let vimdir = '.vim'
+   source ~/.vim/scripts/termcap.vim
 endif
 
 " translate any path to the correct version for the current OS
 function! Path(path)
-    let path = substitute(a:path, '^C:', '', 'i')       " remove leading C:
-    let path = substitute(path, '^c:', '', '')          " remove leading c:
-    let path = substitute(path, '[/\\]\+', $SEP, 'g')   " / or \ => $SEP
-    let path = substitute(path, '^\\', 'C:\', '')       " leading \ => C:\ 
-    return path
+   let path = substitute(a:path, '^C:', '', 'i')       " remove leading C:
+   let path = substitute(path, '^c:', '', '')          " remove leading c:
+   let path = substitute(path, '[/\\]\+', $SEP, 'g')   " / or \ => $SEP
+   let path = substitute(path, '^\\', 'C:\', '')       " leading \ => C:\
+   return path
 endfunction
 
 " personal vim directory
@@ -38,8 +38,8 @@ let g:mapleader = '\'
 
 " return to last edit position when opening files
 augroup lastpos
-    autocmd!
-    autocmd BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
+   autocmd!
+   autocmd BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
 augroup end
 
 " Remember info about open buffers on close
@@ -63,20 +63,30 @@ execute 'set undodir=' . (isdirectory(Path('/etc/vimundo/')) ? Path('/etc/vimund
 set undofile
 
 " NO BELL
-set noerrorbells visualbell t_vb=
+set noerrorbells
+set t_vb=
+set visualbell
 
 " let backspace erase anything
 set backspace=2
 
-" make tabs 4 spaces, shift 4 spaces, tab => spaces, smart autoindenting
-set tabstop=4 softtabstop=4 shiftwidth=4 expandtab autoindent smartindent
+" make tabs 3 spaces, shift 3 spaces, tab => spaces, smart autoindenting
+set autoindent
+set expandtab
+set shiftwidth=3
+set smartindent
+set softtabstop=3
+set tabstop=3
 augroup cindent
-    autocmd!
-    autocmd FileType c,cpp,cs,java,javascript set cindent
+   autocmd!
+   autocmd FileType c,cpp,cs,java,javascript set cindent
 augroup end
 
 " case-smart searching that searches while typing and highlights matches
-set ignorecase smartcase incsearch hlsearch
+set hlsearch
+set ignorecase
+set incsearch
+set smartcase
 nnoremap <silent> <leader>nh :nohl<cr>
 
 " honor modelines
@@ -133,16 +143,16 @@ vnoremap ZQ <esc>ZQ
 
 " read file whose name is under cursor
 function! Readfile()
-    let cfile = expand('<cfile>')
-    let files = globpath(&path, cfile, 0, 1)
-    if empty(files)
-        echoerr 'File ' . cfile . " doesn't exist"
-    else
-        normal oFILE>>>
-        normal o<<<FILE
-        normal k
-        execute 'read' files[0]
-    endif
+   let cfile = expand('<cfile>')
+   let files = globpath(&path, cfile, 0, 1)
+   if empty(files)
+      echoerr 'File ' . cfile . " doesn't exist"
+   else
+      normal oFILE>>>
+      normal o<<<FILE
+      normal k
+      execute 'read' files[0]
+   endif
 endfunction
 inoremap <silent> grf <esc>:call Readfile()<cr>a
 nnoremap <silent> grf      :call Readfile()<cr>
@@ -165,8 +175,8 @@ nnoremap <c-l> <c-w>l
 
 " resize splits on window resize
 augroup splitresize
-    autocmd!
-    autocmd VimResized * exe "normal! \<c-w>="
+   autocmd!
+   autocmd VimResized * exe "normal! \<c-w>="
 augroup end
 
 
@@ -195,25 +205,25 @@ set relativenumber
 
 " line wrapping
 let &showbreak = '  ↳ '
-set wrap
 set cpoptions+=n
 set display=lastline
+set wrap
 
 " show line of current cursor (in current window only)
 set cursorline
 augroup currentline
-    autocmd!
-    autocmd WinLeave * set nocursorline
-    autocmd WinEnter * set cursorline
+   autocmd!
+   autocmd WinEnter * set cursorline
+   autocmd WinLeave * set nocursorline
 augroup end
 
 " highlight columns 80n
 "function! ToggleCC()
-"    if stridx(&colorcolumn, '80') != 0
-"        set colorcolumn=80,160,240,320,400,480,560,640,720,800
-"    else
-"        set colorcolumn=0
-"    endif
+"   if stridx(&colorcolumn, '80') != 0
+"      set colorcolumn=80,160,240,320,400,480,560,640,720,800
+"   else
+"      set colorcolumn=0
+"   endif
 "endfunction
 "nnoremap <silent> <leader>cc :call ToggleCC()<cr>
 "call ToggleCC()
@@ -224,5 +234,5 @@ set showmatch
 
 
 " use filetype plugins
-filetype plugin on
 filetype indent on
+filetype plugin on

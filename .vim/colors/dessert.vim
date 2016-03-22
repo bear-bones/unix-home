@@ -1,12 +1,12 @@
 " Vim color file
-" Maintainer:	James White <jwhite@ccccorp.com>
-" Last Change:	2015-08-27
-" Based On:	http://hans.fugal.net/vim/colors/desert.vim
+" Maintainer:  James White <jwhite@ccccorp.com>
+" Last Change: 2015-08-27
+" Based On:    http://hans.fugal.net/vim/colors/desert.vim
 
 set background=dark
 hi clear
 if exists("syntax_on")
-    syntax reset
+   syntax reset
 endif
 let g:colors_name="dessert"
 

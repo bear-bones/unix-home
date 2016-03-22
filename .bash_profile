@@ -15,8 +15,8 @@ export PROFILE_SOURCED=true
 NAME=
 if [[ $LOGNAME == root ]]
 then
-    NAME=$LOGNAME@
-    export HOME=~jwhite
+   NAME=$LOGNAME@
+   export HOME=~jwhite
 fi
 cd
 
@@ -24,7 +24,7 @@ cd
 export HOSTNAME=${HOSTNAME##*@}
 if [[ -z $HOSTNAME ]]
 then
-    export HOSTNAME=$(uname -n)
+   export HOSTNAME=$(uname -n)
 fi
 export HOSTNAME=$(echo $HOSTNAME |tr '[:upper:]' '[:lower:]')
 
@@ -58,9 +58,9 @@ echo -ne "\e]0;$NAME$HOSTNAME ~\a"
 # prompts
 if [[ $LOGNAME == root ]]
 then
-    export PS1='$([[ $(jobs -s |wc -l |sed "s/^ *//") != 0 ]] && echo -n "\[\e[0;33m\][\j]\[\e[m\] "; echo -n "\[\e[31m\]'$NAME$HOSTNAME'\[\e[m\] \w \[\e[31m\]>\[\e[m\] ")'
+   export PS1='$([[ $(jobs -s |wc -l |sed "s/^ *//") != 0 ]] && echo -n "\[\e[0;33m\][\j]\[\e[m\] "; echo -n "\[\e[31m\]'$NAME$HOSTNAME'\[\e[m\] \w \[\e[31m\]>\[\e[m\] ")'
 else
-    export PS1='$([[ $(jobs -s |wc -l |sed "s/^ *//") != 0 ]] && echo -n "\[\e[0;33m\][\j]\[\e[m\] "; echo -n "\[\e[36m\]'$NAME$HOSTNAME'\[\e[m\] \w \[\e[36m\]>\[\e[m\] ")'
+   export PS1='$([[ $(jobs -s |wc -l |sed "s/^ *//") != 0 ]] && echo -n "\[\e[0;33m\][\j]\[\e[m\] "; echo -n "\[\e[36m\]'$NAME$HOSTNAME'\[\e[m\] \w \[\e[36m\]>\[\e[m\] ")'
 fi
 export PS2='> '
 
@@ -91,11 +91,11 @@ export HISTIGNORE="c:exit:fg:l:ll:ls:sudo -i:which *:x"
 rm -f ~/.ssh/config
 if [[ -f ~/.ssh/local_config ]]
 then
-    cat ~/.ssh/global_config ~/.ssh/local_config >~/.ssh/config
+   cat ~/.ssh/global_config ~/.ssh/local_config >~/.ssh/config
 elif [[ -f ~/.ssh/global_config ]]
 then
-    cp ~/.ssh/global_config ~/.ssh/config
+   cp ~/.ssh/global_config ~/.ssh/config
 else
-    touch ~/.ssh/config
+   touch ~/.ssh/config
 fi
 chmod 644 ~/.ssh/config

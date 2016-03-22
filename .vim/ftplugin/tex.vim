@@ -4,7 +4,9 @@
 set foldmethod=manual
 
 " lots of indent levels means we need short indents
-set tabstop=2 softtabstop=2 shiftwidth=2
+set shiftwidth=2
+set softtabstop=2
+set tabstop=2
 
 " lots of brackets that mean nothing? don't highlight matching brackets
 set noshowmatch
