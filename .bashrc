@@ -156,7 +156,7 @@ function cd() {
    term-set-caption
 }
 function fg() {
-   # give vim/vimdiff the terminal size they need before reviving
+   # give vim and vimdiff the terminal size they need before reviving
    vim=[[ -n $(jobs |grep '\+' |grep --word-regexp 'vim|view') ]]
    vimdiff=[[ -n $(jobs $1 |grep --word-regexp 'vimdiff') ]]
    if [[ $vim ]]
@@ -196,19 +196,19 @@ function vim() {
 }
 function svim() {
    term-set-cols 84
-   sudo vim $*
+   sudo $(which vim) $*
    term-set-cols
 }
 function vimdiff() {
-   # relative numbering uses the left four columns of each file, and the middle
-   # column is the split separator, so it needs 169 columns
-   term-set-cols 169
-   vimdiff $*
+   # relative numbering uses the left six columns of each file, and the middle
+   # column is the split separator, so it needs 173 columns
+   term-set-cols 173
+   command vimdiff $*
    term-set-cols
 }
 function svimdiff() {
-   term-set-cols 169
-   sudo vimdiff $*
+   term-set-cols 173
+   sudo $(which vimdiff) $*
    term-set-cols
 }
 function ssh() {
