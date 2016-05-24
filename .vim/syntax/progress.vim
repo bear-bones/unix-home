@@ -400,10 +400,10 @@ syn keyword ProgressReserved _trace
 " values
 syn match   ProgressDate    "\<\(\d\|\d\d\)/\(\d\|\d\d\)/\(\d\d\|\d\d\d\d\)\>"
 syn keyword ProgressLogical true false yes no
-syn match   ProgressNumber  "\<\(-\|\)\d\+\(\.\d\+\|\)\>"
-syn region  ProgressString  matchgroup=ProgressQuote    start=+"+ end=+"+   skip=+\~\\\|\~\~\|\~"\|\\\~\|\\\\\|\\"+ keepend contains=ProgressInterpolate
-syn region  ProgressString  matchgroup=ProgressQuote    start=+'+ end=+'+   skip=+\~\\\|\~\~\|\~'\|\\\~\|\\\\\|\\'+ keepend contains=ProgressInterpolate
-syn match   ProgressInterpolate "&\d" contained
+syn match   ProgressNumber  /\<\(-\|\)\d\+\(\.\d\+\|\)\>/
+syn region  ProgressString  matchgroup=ProgressQuote    start=/"/ end=/"/   skip=/\~\\\|\~\~\|\~"\|\\\~\|\\\\\|\\"/ keepend contains=ProgressInterpolate
+syn region  ProgressString  matchgroup=ProgressQuote    start=/'/ end=/'/   skip=/\~\\\|\~\~\|\~'\|\\\~\|\\\\\|\\'/ keepend contains=ProgressInterpolate
+syn match   ProgressInterpolate /[^&]\(&&\)*&\d/ms=e-1 contained
 syn match   ProgressUnknown "?"
 
 " operators
@@ -1222,7 +1222,6 @@ augroup trailingspace
    autocmd InsertLeave <buffer> if &ro == 0 | match ProgressSpaceError /\s\+$/ | endif
    autocmd InsertEnter <buffer> if &ro == 0 | match ProgressSpaceError /\s\+\%#\@<!$/ | endif
 augroup end
-
 
 
 " now apply highlighting classes to our terms
