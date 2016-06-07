@@ -56,5 +56,4 @@ function! s:Skeleton(type)
    set filetype=progress
    silent! execute 'read !sed "' . sed_expr . '" ' . skeleton_file
    normal ggdd
-   write
 endfunction
