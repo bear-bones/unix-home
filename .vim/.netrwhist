@@ -1,8 +1,0 @@
-let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =6
-let g:netrw_dirhist_1='/home/jwhite/.ssh'
-let g:netrw_dirhist_2='/opt/js/common/remedy/node_modules/expect.js'
-let g:netrw_dirhist_3='/home/jwhite/Desktop'
-let g:netrw_dirhist_4='/home/jwhite/Dev/term.js/example'
-let g:netrw_dirhist_5='/home/jwhite/Dev/chui/bower_components/foundation/scss/foundation'
-let g:netrw_dirhist_6='/home/jwhite/dev/ng/app/bower_components'
