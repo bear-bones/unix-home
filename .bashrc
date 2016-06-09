@@ -112,6 +112,11 @@ alias x=exit
 
 
 ## Functions
+# vim files that match grep pattern
+function grep2vim() {
+   vim $(command grep -l $*)
+}
+
 # remove a file's contents, creating it if need be
 function truncate() {
    for file in $*
