@@ -103,16 +103,6 @@ set nobackup
 vnoremap < <gv
 vnoremap > >gv
 
-" treat wrapped lines like regular lines for the purpose of navigation
-nnoremap j gj
-nnoremap k gk
-nnoremap ^ g^
-nnoremap $ g$
-vnoremap j gj
-vnoremap k gk
-vnoremap ^ g^
-vnoremap $ g$
-
 " make Y act like the rest of the capitals
 nmap Y y$
 
@@ -215,6 +205,17 @@ let &showbreak = '  ↳ '
 set cpoptions+=n
 set display=lastline
 set wrap
+" \wrap toggles line wrapping
+function! ToggleWrap()
+   if &wrap
+      set nowrap
+   else
+      set wrap
+   endif
+endfunction
+inoremap <silent> <leader>wrap <c-o>:call ToggleWrap()<cr>
+nnoremap <silent> <leader>wrap :call ToggleWrap()<cr>
+vnoremap <silent> <leader>wrap :call ToggleWrap()<cr>
 
 " show line of current cursor (in current window only)
 set cursorline
@@ -223,17 +224,6 @@ augroup currentline
    autocmd WinEnter * set cursorline
    autocmd WinLeave * set nocursorline
 augroup end
-
-" highlight columns 80n
-"function! ToggleCC()
-"   if stridx(&colorcolumn, '80') != 0
-"      set colorcolumn=80,160,240,320,400,480,560,640,720,800
-"   else
-"      set colorcolumn=0
-"   endif
-"endfunction
-"nnoremap <silent> <leader>cc :call ToggleCC()<cr>
-"call ToggleCC()
 
 " show matching brackets (thanks Doug)
 set showmatch
