@@ -15,7 +15,7 @@ fi
 alias grep="grep $grep_color $grep_type"
 
 # ls
-[[ -f /etc/DIR_COLORS ]] && eval $(dircolors -b /etc/DIR_COLORS)
+[[ -f /etc/DIR_COLORS ]] && eval $(dircolors --bourne-shell /etc/DIR_COLORS)
 alias ls='ls --color=always'
 
 
@@ -106,15 +106,19 @@ alias newlatex='ssh newlatex'
 
 # miscellaneous commands
 alias c=clear
-alias fgr=finger
 alias pd=pushd
 alias x=exit
 
 
 ## Functions
+# make finger less awkward to use
+function fgr() {
+   finger $* |sed --regexp-extended "s/\\bfinger\\b/fgr/g"
+}
+
 # vim files that match grep pattern
 function grep2vim() {
-   vim $(command grep -l $*)
+   vim $(command grep --files-with-matches $*)
 }
 
 # remove a file's contents, creating it if need be
@@ -135,7 +139,7 @@ function llf() {
 
 # convert input string to hex
 function str2hex() {
-   echo -n $1 |xxd |tr ' ' "\n" |sed -n "/^....$/p" |tr -d "\n"
+   echo -n $1 |xxd |tr ' ' "\n" |sed --quiet "/^....$/p" |tr --delete "\n"
 }
 
 # functions to make sure the window title is always [root@]server:pwd and
@@ -185,12 +189,12 @@ function pushd() {
    else
       builtin pushd $* >/dev/null
    fi
-   echo :: $(dirs |cut -s -d' ' -f2-)
+   echo :: $(dirs |cut --only-delimited --delimiter=' ' --fields=2-)
    term-set-caption
 }
 function popd() {
    builtin popd $* >/dev/null
-   echo :: $(dirs |cut -s -d' ' -f2-)
+   echo :: $(dirs |cut --only-delimited --delimiter=' ' --fields=2-)
    term-set-caption
 }
 function vim() {
