@@ -917,7 +917,6 @@ function! Abbrev()
    inoreabbrev <silent> <buffer> xref XREF
    inoreabbrev <silent> <buffer> y-of Y-OF
    inoreabbrev <silent> <buffer> year YEAR
-   inoreabbrev <silent> <buffer> yes YES
    inoreabbrev <silent> <buffer> yes-no YES-NO
    inoreabbrev <silent> <buffer> yes-no-cancel YES-NO-CANCEL
    " }}}
