@@ -88,6 +88,7 @@ alias pdtmp='pushd /tmp/jwhite'
 # ssh aliases
 alias cccdata='ssh cccdata'
 alias checkdev='ssh checkdev'
+alias chiweb='ssh chiweb'
 alias fms001='ssh fms001'
 alias fms002='ssh fms002'
 alias fms003='ssh fms003'
