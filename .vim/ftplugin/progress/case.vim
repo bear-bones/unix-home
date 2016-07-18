@@ -2143,7 +2143,6 @@ function! Unabbrev()
    iunabbrev <buffer> xref
    iunabbrev <buffer> y-of
    iunabbrev <buffer> year
-   iunabbrev <buffer> yes
    iunabbrev <buffer> yes-no
    iunabbrev <buffer> yes-no-cancel
    " }}}
