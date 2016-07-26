@@ -182,7 +182,7 @@ augroup end
 
 " syntax highlighting
 syntax on
-colorscheme dessert
+colorscheme desert
 
 " display row and column of cursor as well as % scrolled
 set ruler
