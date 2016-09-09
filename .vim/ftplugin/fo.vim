@@ -1,7 +1,7 @@
 " for xml-like files (.xml, .xsl, .html, .fo) I don't care about line length;
 " often I edit them fullscreen
 if has('colorcolumn')
-   set colorcolumn=0
+  set colorcolumn=0
 endif
 
 " and I don't want the lines to wrap, since they're sometimes really long, and

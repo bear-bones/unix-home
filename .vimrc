@@ -3,26 +3,26 @@
 " os-specific crap (get this out of the way so we never have to think about it
 " again
 if has('win32') || has('win64')
-   let $SEP = '\'
-   if $HOME =~ '/'  " unix-style paths means running under msysgit
-      let vimdir = '.vim'
-      source ~/.gvimrc
-   else
-      let vimdir = 'vimfiles'
-   endif
+  let $SEP = '\'
+  if $HOME =~ '/'  " unix-style paths means running under msysgit
+    let vimdir = '.vim'
+    source ~/.gvimrc
+  else
+    let vimdir = 'vimfiles'
+  endif
 else " *nix
-   let $SEP = '/'
-   let vimdir = '.vim'
-   source ~/.vim/scripts/termcap.vim
+  let $SEP = '/'
+  let vimdir = '.vim'
+  source ~/.vim/scripts/termcap.vim
 endif
 
 " translate any path to the correct version for the current OS
 function! Path(path)
-   let path = substitute(a:path, '^C:', '', 'i')       " remove leading C:
-   let path = substitute(path, '^c:', '', '')          " remove leading c:
-   let path = substitute(path, '[/\\]\+', $SEP, 'g')   " / or \ => $SEP
-   let path = substitute(path, '^\\', 'C:\', '')       " leading \ => C:\
-   return path
+  let path = substitute(a:path, '^C:', '', 'i')       " remove leading C:
+  let path = substitute(path, '^c:', '', '')          " remove leading c:
+  let path = substitute(path, '[/\\]\+', $SEP, 'g')   " / or \ => $SEP
+  let path = substitute(path, '^\\', 'C:\', '')       " leading \ => C:\
+  return path
 endfunction
 
 " personal vim directory
@@ -38,8 +38,8 @@ let g:mapleader = '\'
 
 " return to last edit position when opening files
 augroup lastpos
-   autocmd!
-   autocmd BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
+  autocmd!
+  autocmd BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
 augroup end
 
 " Remember info about open buffers on close
@@ -70,16 +70,16 @@ set visualbell
 " let backspace erase anything
 set backspace=2
 
-" make tabs 3 spaces, shift 3 spaces, tab => spaces, smart autoindenting
+" make tabs 2 spaces, shift 2 spaces, tab => spaces, smart autoindenting
 set autoindent
 set expandtab
-set shiftwidth=3
+set shiftwidth=2
 set smartindent
-set softtabstop=3
-set tabstop=3
+set softtabstop=2
+set tabstop=2
 augroup cindent
-   autocmd!
-   autocmd FileType c,cpp,cs,java,javascript set cindent
+  autocmd!
+  autocmd FileType c,cpp,cs,java,javascript set cindent
 augroup end
 
 " case-smart searching that searches while typing and highlights matches
@@ -140,16 +140,16 @@ vnoremap ZZ <esc>:w<cr>gv
 
 " read file whose name is under cursor
 function! Readfile()
-   let cfile = expand('<cfile>')
-   let files = globpath(&path, cfile, 0, 1)
-   if empty(files)
-      echoerr 'File ' . cfile . " doesn't exist"
-   else
-      normal oFILE>>>
-      normal o<<<FILE
-      normal k
-      execute 'read' files[0]
-   endif
+  let cfile = expand('<cfile>')
+  let files = globpath(&path, cfile, 0, 1)
+  if empty(files)
+    echoerr 'File ' . cfile . " doesn't exist"
+  else
+    normal oFILE>>>
+    normal o<<<FILE
+    normal k
+    execute 'read' files[0]
+  endif
 endfunction
 inoremap <silent> grf <esc>:call Readfile()<cr>a
 nnoremap <silent> grf      :call Readfile()<cr>
@@ -172,8 +172,8 @@ nnoremap <c-l> <c-w>l
 
 " resize splits on window resize
 augroup splitresize
-   autocmd!
-   autocmd VimResized * exe "normal! \<c-w>="
+  autocmd!
+  autocmd VimResized * exe "normal! \<c-w>="
 augroup end
 
 
@@ -207,11 +207,11 @@ set display=lastline
 set wrap
 " \wrap toggles line wrapping
 function! ToggleWrap()
-   if &wrap
-      set nowrap
-   else
-      set wrap
-   endif
+  if &wrap
+    set nowrap
+  else
+    set wrap
+  endif
 endfunction
 inoremap <silent> <leader>wrap <c-o>:call ToggleWrap()<cr>
 nnoremap <silent> <leader>wrap :call ToggleWrap()<cr>
@@ -220,9 +220,9 @@ vnoremap <silent> <leader>wrap :call ToggleWrap()<cr>
 " show line of current cursor (in current window only)
 set cursorline
 augroup currentline
-   autocmd!
-   autocmd WinEnter * set cursorline
-   autocmd WinLeave * set nocursorline
+  autocmd!
+  autocmd WinEnter * set cursorline
+  autocmd WinLeave * set nocursorline
 augroup end
 
 " show matching brackets (thanks Doug)

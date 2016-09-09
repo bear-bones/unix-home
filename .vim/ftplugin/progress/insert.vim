@@ -1,27 +1,36 @@
 " {{{ common functions
 " function to echo an error message
 function! EchoError(message)
-    redraw
-    echohl Error
-    echo a:message
-    echohl None
+  redraw
+  echohl Error
+  echo a:message
+  echohl None
 endfunction
 
 
 " function to get the full type name from the short type code
 function! GetTypeName(type)
-    let type = ''
-    if     a:type ==? 'ch' | let type = 'CHAR'
-    elseif a:type ==? 'da' | let type = 'DATE'
-    elseif a:type ==? 'de' | let type = 'DEC'
-    elseif a:type ==? 'ha' | let type = 'HANDLE'
-    elseif a:type ==? 'in' | let type = 'INT'
-    elseif a:type ==? 'lc' | let type = 'LONGCHAR'
-    elseif a:type ==? 'lo' | let type = 'LOG'
-    elseif a:type ==? 'me' | let type = 'MEMPTR'
-    elseif a:type ==? 'ro' | let type = 'ROWID'
-    endif
-    return type
+  let type = ''
+  if a:type ==? 'ch'
+    let type = 'CHAR'
+  elseif a:type ==? 'da'
+    let type = 'DATE'
+  elseif a:type ==? 'de'
+    let type = 'DEC'
+  elseif a:type ==? 'ha'
+    let type = 'HANDLE'
+  elseif a:type ==? 'in'
+    let type = 'INT'
+  elseif a:type ==? 'lc'
+    let type = 'LONGCHAR'
+  elseif a:type ==? 'lo'
+    let type = 'LOG'
+  elseif a:type ==? 'me'
+    let type = 'MEMPTR'
+  elseif a:type ==? 'ro'
+    let type = 'ROWID'
+  endif
+  return type
 endfunction
 
 
@@ -29,72 +38,72 @@ endfunction
 " phrase like "DEF INPUT-OUTPUT PARAM w-type AS CHAR NO-UNDO" or
 " "INPUT-OUTPUT w-type AS CHAR"
 function! GetParamString(context, param)
-    let parts = split(a:param, ' ')
-    if len(parts) < 2
-        call EchoError('You must supply the parameter name and type.')
-        return 'error'
+  let parts = split(a:param, ' ')
+  if len(parts) < 2
+    call EchoError('You must supply the parameter name and type.')
+    return 'error'
+  endif
+
+  let name = get(parts, 0)
+  let type = get(parts, 1)
+
+  let io = 'INPUT' 
+  let table = ''
+  let noundo = ' NO-UNDO'
+  let init = ''
+
+
+  " sort out whether this is INPUT, INPUT-OUTPUT, or OUTPUT
+  if stridx(type, 'io') == 0
+    let io = 'INPUT-OUTPUT'
+    let type = strpart(type, 2)
+  elseif stridx(type, 'o') == 0
+    let io = 'OUTPUT'
+    let type = strpart(type, 1)
+  elseif stridx(type, 'i') == 0 && type !=? 'in'
+    let type = strpart(type, 1)
+  endif
+
+
+  " if it's a procedure's OUTPUT parameter, it can have an INIT value
+  if a:context ==? 'procedure' && io ==? 'output' &&
+    \strridx(type, 'i') == strlen(type) - 1
+    if len(parts) < 3
+      if a:context ==? 'procedure'
+        call EchoError("You didn't give a value for the initialized parameter.")
+      else
+        call EchoError("You didn't give a value for the initialized argument.")
+      endif
+      return 'error'
     endif
-
-    let name = get(parts, 0)
-    let type = get(parts, 1)
-
-    let io = 'INPUT' 
-    let table = ''
-    let noundo = ' NO-UNDO'
-    let init = ''
+    let init = ' INIT ' . get(parts, 2)
+    let type = strpart(type, 0, strlen(type) - 1)
+  endif
 
 
-    " sort out whether this is INPUT, INPUT-OUTPUT, or OUTPUT
-    if stridx(type, 'io') == 0
-        let io = 'INPUT-OUTPUT'
-        let type = strpart(type, 2)
-    elseif stridx(type, 'o') == 0
-        let io = 'OUTPUT'
-        let type = strpart(type, 1)
-    elseif stridx(type, 'i') == 0 && type !=? 'in'
-        let type = strpart(type, 1)
-    endif
-
-
-    " if it's a procedure's OUTPUT parameter, it can have an INIT value
-    if a:context ==? 'procedure' && io ==? 'output'
-        \ && strridx(type, 'i') == strlen(type) - 1
-        if len(parts) < 3
-            if a:context ==? 'procedure'
-                call EchoError("You didn't give a value for the initialized parameter.")
-            else
-                call EchoError("You didn't give a value for the initialized argument.")
-            endif
-            return 'error'
-        endif
-        let init = ' INIT ' . get(parts, 2)
-        let type = strpart(type, 0, strlen(type) - 1)
-    endif
-
-
-    " now flesh out our types
-    if a:context ==? 'procedure' && type ==? 'ta'
-        let table = ' TABLE FOR '
-        let type = ''
-        let noundo = ''
+  " now flesh out our types
+  if a:context ==? 'procedure' && type ==? 'ta'
+    let table = ' TABLE FOR '
+    let type = ''
+    let noundo = ''
+  else
+    let old_type = type
+    let type = GetTypeName(old_type)
+    if strlen(type) == 0
+      call EchoError('Invalid type "' . old_type . '"')
+      return 'error'
     else
-        let old_type = type
-        let type = GetTypeName(old_type)
-        if strlen(type) == 0
-            call EchoError('Invalid type "' . old_type . '"')
-            return 'error'
-        else
-            let type = ' AS ' . type
-        endif
+      let type = ' AS ' . type
     endif
+  endif
 
 
-    " aaand return a string suitable for the context (function or procedure)
-    if a:context ==? 'procedure'
-        return 'DEF ' . io . ' PARAM ' . table . name . type . noundo . init . '.'
-    else
-        return io . ' ' . table . name . type
-    endif
+  " aaand return a string suitable for the context (function or procedure)
+  if a:context ==? 'procedure'
+    return 'DEF ' . io . ' PARAM ' . table . name . type . noundo . init . '.'
+  else
+    return io . ' ' . table . name . type
+  endif
 endfunction
 " }}}
 
@@ -319,58 +328,62 @@ nnoremap <silent> <buffer> <leader>whendo iWHEN<cr>THEN<cr>DO:<cr>END.<up><up><u
 inoremap <silent> <buffer> <leader>proc <c-o>:call InsertProc()<cr>
 nnoremap <silent> <buffer> <leader>proc      :call InsertProc()<cr>
 function! InsertProc(...)
-    let line = line('.')
-    if a:0 == 1 | let name = a:1
-    else | let name = input('Enter Procedure Name: ')
+  let line = line('.')
+  if a:0 == 1
+    let name = a:1
+  else
+    let name = input('Enter Procedure Name: ')
+  endif
+
+  let indent_level = indent(line)
+  let this_indent = repeat(' ', indent_level)
+  let next_indent = this_indent . repeat(' ', &shiftwidth)
+
+
+  " get parameters
+  let params = []
+  let param = input('Enter Parameter: ')
+  while strlen(param) > 0
+    let param_string = GetParamString('procedure', param)
+    if param_string !=? 'error'
+      call add(params, param_string)
     endif
-
-    let indent_level = indent(line)
-    let this_indent = repeat(' ', indent_level)
-    let next_indent = this_indent . repeat(' ', &shiftwidth)
-
-
-    " get parameters
-    let params = []
     let param = input('Enter Parameter: ')
-    while strlen(param) > 0
-        let param_string = GetParamString('procedure', param)
-        if param_string !=? 'error' | call add(params, param_string) | endif
-        let param = input('Enter Parameter: ')
-    endwhile
+  endwhile
 
 
-    " write procedure header
-    call append(line, this_indent . '/* {{' . '{ ' . name . ' */')
+  " write procedure header
+  call append(line, this_indent . '/* {{' . '{ ' . name . ' */')
+  let line += 1
+  call append(line, this_indent . 'PROCEDURE ' . name . ':')
+  let line += 1
+
+
+  " write parameters
+  let length = len(params) - 1
+  for param in params
+    call append(line, next_indent . param)
     let line += 1
-    call append(line, this_indent . 'PROCEDURE ' . name . ':')
+  endfor
+
+  " parameters append a blank line after them
+  if len(params) > 0
+    call append(line, '')
     let line += 1
+  endif
+  
+
+  " write procedure trailer
+  call append(line, this_indent)
+  call append(line + 1,
+    \this_indent . 'END PROCEDURE. /* ' . name . ' }' . '}} */')
+  let line += 1
 
 
-    " write parameters
-    let length = len(params) - 1
-    for param in params
-        call append(line, next_indent . param)
-        let line += 1
-    endfor
-
-    " parameters append a blank line after them
-    if len(params) > 0
-        call append(line, '')
-        let line += 1
-    endif
-    
-
-    " write procedure trailer
-    call append(line, this_indent)
-    call append(line + 1,
-        \ this_indent . 'END PROCEDURE. /* ' . name . ' }' . '}} */')
-    let line += 1
-
-
-    " start writing procedure body
-    call cursor(line, 0)
-    normal zozz
-    startinsert
+  " start writing procedure body
+  call cursor(line, 0)
+  normal zozz
+  startinsert
 endfunction
 " }}}
 
@@ -381,73 +394,74 @@ inoremap <silent> <buffer> <leader>func <c-o>:call InsertFunc()<cr>
 nnoremap <silent> <buffer> <leader>func      :call InsertFunc()<cr>
 
 function! InsertFunc(...)
-    let tab = repeat(' ', &shiftwidth)
-    let line = line('.')
-    let name = ''
-    let type = ''
+  let tab = repeat(' ', &shiftwidth)
+  let line = line('.')
+  let name = ''
+  let type = ''
 
-    if a:0 == 2
-        let name = a:1
-        let type = a:2
-    elseif a:0 == 1
-        let name = a:1
-    endif
+  if a:0 == 2
+    let name = a:1
+    let type = a:2
+  elseif a:0 == 1
+    let name = a:1
+  endif
 
-    " have to have a function name
+  " have to have a function name
+  if name == ''
+    let name = input('Enter Function Name: ')
     if name == ''
-        let name = input('Enter Function Name: ')
-        if name == ''
-            call EchoError('Function name required')
-            return
-        endif
+      call EchoError('Function name required')
+      return
     endif
+  endif
 
-    " flesh out our return type
+  " flesh out our return type
+  if type == ''
+    let type = input('Enter Return Type: ')
     if type == ''
-        let type = input('Enter Return Type: ')
-        if type == ''
-            call EchoError('Return type required')
-            return
-        endif
+      call EchoError('Return type required')
+      return
     endif
-    let old_type = type
-    let type = GetTypeName(type)
-    if type == ''
-        call EchoError('Invalid return type "' . old_type . '"')
-        return
-    endif
+  endif
+  let old_type = type
+  let type = GetTypeName(type)
+  if type == ''
+    call EchoError('Invalid return type "' . old_type . '"')
+    return
+  endif
 
 
-    " get arguments
-    let args = []
+  " get arguments
+  let args = []
+  let arg = input('Enter Argument: ')
+  while strlen(arg) > 0
+    let arg_string = GetParamString('function', arg) 
+    if arg_string !=? 'error'
+      call add(args, arg_string)
+    endif
     let arg = input('Enter Argument: ')
-    while strlen(arg) > 0
-        let arg_string = GetParamString('function', arg) 
-        if arg_string !=? 'error' | call add(args, arg_string) | endif
-        let arg = input('Enter Argument: ')
-    endwhile
-    let arg = join(args, ', ')
+  endwhile
+  let arg = join(args, ', ')
 
 
-    " write function
-    call append(line, '/* {{' . '{ ' . type . ' ' . name . ' */')
-    let line += 1
-    call append(line, 'FUNCTION ' . name . ' RETURNS ' . type
-        \ . ' (' . arg . '):')
-    let line += 1
-    call append(line, tab . 'DEF VAR w-result AS ' . type . ' NO-UNDO.')
-    let line += 1
-    call append(line, '')
-    let line += 1
-    call append(line, tab . 'RETURN w-result.')
-    let line += 1
-    call append(line, 'END FUNCTION. /* ' . name . ' }' . '}} */')
+  " write function
+  call append(line, '/* {{' . '{ ' . type . ' ' . name . ' */')
+  let line += 1
+  call append(line, 'FUNCTION ' . name . ' RETURNS ' . type . ' (' . arg . '):')
+  let line += 1
+  call append(line, tab . 'DEF VAR w-result AS ' . type . ' NO-UNDO.')
+  let line += 1
+  call append(line, '')
+  let line += 1
+  call append(line, tab . 'RETURN w-result.')
+  let line += 1
+  call append(line, 'END FUNCTION. /* ' . name . ' }' . '}} */')
 
 
-    " start writing function body
-    call cursor(line - 2, 0)
-    normal zojzz
-    startinsert
+  " start writing function body
+  call cursor(line - 2, 0)
+  normal zojzz
+  startinsert
 endfunction
 " }}}
 

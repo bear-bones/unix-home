@@ -3,7 +3,7 @@
 " Extensions:  *.p (collides with Pascal),
 "              *.i (collides with assembler)
 " Maintainer:  James White <jwhite@ccccorp.com>
-" Last Change: 2015-08-27
+" Last Change: 2016-09-09
 
 setlocal iskeyword=@,48-57,_,-,!,#,$,%
 syn case ignore
@@ -1215,12 +1215,12 @@ syn region  ProgressPreProc start="&"               end="\>"    contained
 " highlight misused whitespace when not typing at end of line
 " autocmd's courtesy vim plugin Badwhitespace (github bitc/vim-bad-whitespace)
 if &ro == 0
-   syn match ProgressSpaceError /\s\+$/
+  syn match ProgressSpaceError /\s\+$/
 endif
 augroup trailingspace
-   autocmd!
-   autocmd InsertLeave <buffer> if &ro == 0 | match ProgressSpaceError /\s\+$/ | endif
-   autocmd InsertEnter <buffer> if &ro == 0 | match ProgressSpaceError /\s\+\%#\@<!$/ | endif
+  autocmd!
+  autocmd InsertLeave <buffer> if &ro == 0 | match ProgressSpaceError /\s\+$/ | endif
+  autocmd InsertEnter <buffer> if &ro == 0 | match ProgressSpaceError /\s\+\%#\@<!$/ | endif
 augroup end
 
 
