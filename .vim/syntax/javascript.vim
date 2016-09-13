@@ -48,8 +48,8 @@ syn match   javaScriptNumber	       "-\=\<\d\+L\=\>\|0[xX][0-9a-fA-F]\+\>"
 syn region  javaScriptRegexpString     start=+/[^/*]+me=e-1 skip=+\\\\\|\\/+ end=+/[gimu]\{0,3\}\s*$+ end=+/[gimu]\{0,3\}\s*[;.,)\]}]+me=e-1 contains=@htmlPreproc oneline
 
 syn keyword javaScriptConditional	if else switch
-syn keyword javaScriptRepeat		while for do in
-syn keyword javaScriptBranch		break continue
+syn keyword javaScriptRepeat		while for do in of
+syn keyword javaScriptBranch		break continue yield
 syn keyword javaScriptOperator		new delete instanceof typeof
 syn keyword javaScriptType		Array Boolean Date Function Number Object String RegExp
 syn keyword javaScriptStatement		return with
