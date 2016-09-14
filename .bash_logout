@@ -1,2 +1,4 @@
-## Clean up temp files
-rm -f ~/encworkfile* /tmp/jwhite/* 2>/dev/null
+if [[ -f ~/.local_logout ]]
+then
+  source ~/.local_logout
+fi
