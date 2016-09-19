@@ -1,4 +1,4 @@
-## Colors for grep and ls
+# colors for grep and ls
 # grep
 grep_color=
 if [[ -n $(grep --help |grep -- --color) ]]
@@ -13,7 +13,6 @@ else
   grep_type=--extended-regexp
 fi
 alias grep="grep $grep_color $grep_type"
-
 # ls
 if [[ -f /etc/DIR_COLORS ]]
 then
@@ -21,9 +20,7 @@ then
 fi
 alias ls='ls --color=always'
 
-
-## Aliases
-# permutations of the ls command
+# aliases
 alias l='ls'
 alias l1='ls -1'
 alias la='ls -A'
@@ -132,12 +129,8 @@ function fldart() {
 # quick dir change
 alias cdbin='cd /usr/local/bin'
 alias cdlog='cd /var/log'
-alias cdsrc='cd /usr/local/src'
-alias cdtmp='cd /tmp/jwhite'
 alias pdbin='pushd /usr/local/bin'
 alias pdlog='pushd /var/log'
-alias pdsrc='pushd /usr/local/src'
-alias pdtmp='pushd /tmp/jwhite'
 
 # ssh aliases
 alias cccdata='ssh cccdata'
@@ -165,7 +158,7 @@ alias pd=pushd
 alias x=exit
 
 
-## Functions
+# functions
 # make finger less awkward to use
 function fgr() {
   finger $* |sed --regexp-extended "s/\\bfinger\\b/fgr/g"
