@@ -142,15 +142,14 @@ alias fms003='ssh fms003'
 alias fms004='ssh fms004'
 alias fmschar='ssh fmschar'
 alias fmscommon='ssh fmscommon'
-alias fmslatex='ssh fmslatex'
 alias fmsportal='ssh fmsportal'
 alias freecheck='ssh freecheck'
 alias freedev='ssh freedev'
 alias freefin='ssh freefin'
-alias freeocr='ssh freeocr'
 alias freeops='ssh freeops'
 alias freewebdb='ssh freewebdb'
-alias newlatex='ssh newlatex'
+alias latex='ssh latex'
+alias oldlatex='ssh oldlatex'
 
 # miscellaneous commands
 alias c=clear
