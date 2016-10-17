@@ -149,7 +149,7 @@ alias freefin='ssh freefin'
 alias freeops='ssh freeops'
 alias freewebdb='ssh freewebdb'
 alias latex='ssh latex'
-alias oldlatex='ssh oldlatex'
+alias newlatex='ssh newlatex'
 
 # miscellaneous commands
 alias c=clear
