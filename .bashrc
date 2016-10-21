@@ -12,7 +12,7 @@ then
 else
   grep_type=--extended-regexp
 fi
-alias grep="grep $grep_color $grep_type"
+alias pgrep="grep $grep_color $grep_type"
 # ls
 if [[ -f /etc/DIR_COLORS ]]
 then
@@ -38,14 +38,14 @@ alias llar='ls -hlAr'
 alias llat='ls -hlAt'
 alias llrt='ls -hlrt'
 alias llart='ls -hlArt'
-alias lld='ls -dhl |grep ^d'
-alias llda='ls -dhlA |grep ^d'
-alias lldr='ls -dhlr |grep ^d'
-alias lldt='ls -dhlt |grep ^d'
-alias lldar='ls -dhlAr |grep ^d'
-alias lldat='ls -dhlAt |grep ^d'
-alias lldrt='ls -dhlrt |grep ^d'
-alias lldart='ls -dhlArt |grep ^d'
+alias lld='ls -hl --color=always |grep ^d'
+alias llda='ls -hlA --color=always |grep ^d'
+alias lldr='ls -hlr --color=always |grep ^d'
+alias lldt='ls -hlt --color=always |grep ^d'
+alias lldar='ls -hlAr --color=always |grep ^d'
+alias lldat='ls -hlAt --color=always |grep ^d'
+alias lldrt='ls -hlrt --color=always |grep ^d'
+alias lldart='ls -hlArt --color=always |grep ^d'
 
 # combine find's utility with ls's output formatting
 function lsfind() {
@@ -165,7 +165,7 @@ function fgr() {
 
 # vim files that match grep pattern
 function grep2vim() {
-  vim $(command grep --files-with-matches $*)
+  vim $(grep --files-with-matches $*)
 }
 
 # remove a file's contents, creating it if need be
