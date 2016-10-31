@@ -2488,11 +2488,16 @@ nnoremap \\\      :call Abbrev()<cr>a<space>*/
 
 
 " change case of previous word
-" viw  -- select word
-" [Uu] -- make uppercase/lowercase
-" e    -- move to end of word
-" a    -- append
-inoremap <c-u> <c-o>viwUea
-nnoremap <c-u>      viwUea
-inoremap <c-l> <c-o>viwuea
-nnoremap <c-l>      viwuea
+" insert mode (each command prefixed with ctrl+o to run in normal mode):
+"   gUaw -- uppercase entire word (guaw for lowercase)
+"   e    -- move to end of word
+"   a    -- append (necessary if cursor was at end of line; otherwise it winds
+"           up in insert mode before the last character of the word)
+" normal mode
+"   m`   -- make mark named '`' at current cursor position
+"   gUaw -- uppercase entire word (guaw for lowercase)
+"   ``   -- return cursor to mark '`'
+inoremap <c-u> <c-o>gUaw<c-o>e<c-o>a
+nnoremap <c-u> m`gUaw``
+inoremap <c-l> <c-o>guaw<c-o>e<c-o>a
+nnoremap <c-l> m`guaw``
