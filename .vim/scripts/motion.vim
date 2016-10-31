@@ -13,6 +13,9 @@ function! NextIndentLine(inclusive, forward, out)
         if (!a:inclusive)
           let line = line - step
         endif
+        if (a:out)
+          let column = column - &shiftwidth
+        endif
         execute line
         execute "normal " column . "|"
         return
