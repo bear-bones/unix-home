@@ -1,4 +1,4 @@
-" la vim-configuracion magnifico de James White
+" la vim-configuracion magnifico de Diego Blanco
 
 " this one has to come first
 source ~/.vim/scripts/os.vim

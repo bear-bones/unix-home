@@ -58,8 +58,3 @@ nnoremap <silent> * *zz
 nnoremap <silent> # #zz
 nnoremap <silent> g* g*zz
 nnoremap <silent> g# g#zz
-
-" just smash `jk` instead of stretching for escape
-inoremap jk <esc>
-inoremap <leader>jk jk
-inoremap <esc> <nop>
