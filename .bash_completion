@@ -1,0 +1,5 @@
+# server-local settings
+if [[ -f ~/.local_completion ]]
+then
+  source ~/.local_completion
+fi

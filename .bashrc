@@ -156,8 +156,6 @@ alias c=clear
 alias pd=pushd
 alias x=exit
 
-
-# functions
 # make finger less awkward to use
 function fgr() {
   finger $* |sed --regexp-extended "s/\\bfinger\\b/fgr/g"
@@ -174,14 +172,6 @@ function truncate() {
   do
     echo -n >$file
   done
-}
-
-# allow find options for ls
-function lf() {
-  ls $(find $*)
-}
-function llf() {
-  ls -l $(find $*)
 }
 
 # convert input string to hex
@@ -288,3 +278,9 @@ function sudo() {
   term-set-cols
   term-set-caption
 }
+
+# server-local settings
+if [[ -f ~/.localrc ]]
+then
+  source ~/.localrc
+fi

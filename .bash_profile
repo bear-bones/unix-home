@@ -1,22 +1,19 @@
-## James White's magnificent .bash_profile file
+# james white's magnificent .bash_profile file
 
-
-## Reasons to not execute this script
+# reasons to not execute this script
 # only source once
 if [[ $PROFILE_SOURCED ]]
 then
   return
 fi
 export PROFILE_SOURCED=true
-
 # redirect winfast logins
 if [[ -f .winfastrc ]]
 then
   source .winfastrc
 fi
 
-
-## Names
+# names
 # root or not root
 NAME=
 if [[ $LOGNAME == root ]]
@@ -25,7 +22,6 @@ then
   export HOME=~jwhite
 fi
 cd
-
 # get host name if we don't have it already
 export HOSTNAME=${HOSTNAME##*@}
 if [[ -z $HOSTNAME ]]
@@ -35,11 +31,10 @@ fi
 export HOSTNAME=$(echo $HOSTNAME |tr '[:upper:]' '[:lower:]')
 
 
-## Terminal settings
+# terminal settings
 # xterm
 export TERM=xterm
 export TERMINAL=$TERM
-
 # utf8
 export LANG=en_US.utf8
 export LC_CTYPE=$LANG
@@ -54,13 +49,11 @@ export LC_ADDRESS=$LANG
 export LC_TELEPHONE=$LANG
 export LC_MEASUREMENT=$LANG
 export LC_IDENTIFICATION=$LANG
-
 # window title and size
 echo -ne "\e[8;48;80t"
 echo -ne "\e]0;$NAME$HOSTNAME ~\a"
 
-
-## Bash settings
+# bash settings
 # prompts
 if [[ $LOGNAME == root ]]
 then
@@ -69,40 +62,31 @@ else
   export PS1='$([[ $(jobs -s |wc -l |sed "s/^ *//") != 0 ]] && echo -n "\[\e[0;33m\][\j]\[\e[m\] "; echo -n "\[\e[36m\]'$NAME$HOSTNAME'\[\e[m\] \w \[\e[36m\]>\[\e[m\] ")'
 fi
 export PS2='> '
-
 # ignore case when globbing
 shopt -s nocaseglob
-
 # vi-style command line editing
 set -o vi
-
 # add ~/bin and current working directory to path
 export PATH=$PATH:~/bin:.
-
 # history settings
 export HISTTIMEFORMAT='%F %T  '
 export HISTCONTROL=ignoredups
 export HISTIGNORE="c:exit:fg:l:ll:ls:sudo -i:which *:x"
 
-# aliases
+# rc file
 if [[ -f ~/.bashrc ]]
 then
   source ~/.bashrc
 fi
 
-
-## Server-local settings
+# server-local settings
 # bash
 if [[ -f ~/.local_profile ]]
 then
   source ~/.local_profile
 fi
-if [[ -f ~/.localrc ]]
-then
-  source ~/.localrc
-fi
 
-# ssh
+# ssh settings
 rm -f ~/.ssh/config
 if [[ -f ~/.ssh/local_config ]]
 then
