@@ -20,6 +20,7 @@ if [[ $LOGNAME == root ]]
 then
   NAME=$LOGNAME@
   export HOME=~jwhite
+  cd
 fi
 cd
 # get host name if we don't have it already
@@ -29,7 +30,6 @@ then
   export HOSTNAME=$(uname -n)
 fi
 export HOSTNAME=$(echo $HOSTNAME |tr '[:upper:]' '[:lower:]')
-
 
 # terminal settings
 # xterm
@@ -98,3 +98,10 @@ else
   touch ~/.ssh/config
 fi
 chmod 644 ~/.ssh/config
+
+# if there's a CDDIR environment variable, cd to that directory
+if [[ -n $CDDIR ]]
+then
+  cd "$CDDIR"
+  unset CDDIR
+fi

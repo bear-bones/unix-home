@@ -1,12 +1,12 @@
 # colors for grep and ls
 # grep
 grep_color=
-if [[ -n $(grep --help |grep -- --color) ]]
+if grep --help |grep --quiet -- --color
 then
   grep_color=--color
 fi
 grep_type=
-if [[ -n $(grep --help |grep -- --perl-regexp) ]]
+if grep --help |grep --quiet -- --perl-regexp
 then
   grep_type=--perl-regexp
 else
@@ -47,85 +47,6 @@ alias lldat='ls -hlAt --color=always |grep ^d'
 alias lldrt='ls -hlrt --color=always |grep ^d'
 alias lldart='ls -hlArt --color=always |grep ^d'
 
-# combine find's utility with ls's output formatting
-function lsfind() {
-  find . -maxdepth 1 $* |sed -e 's|\./||';
-}
-function f() {
-  ls $(lsfind $*);
-}
-function f1() {
-  ls -1 $(lsfind $*);
-}
-function fa() {
-  ls -A $(lsfind $*);
-}
-function fr() {
-  ls -r $(lsfind $*);
-}
-function ft() {
-  ls -t $(lsfind $*);
-}
-function far() {
-  ls -Ar $(lsfind $*);
-}
-function fat() {
-  ls -At $(lsfind $*);
-}
-function frt() {
-  ls -rt $(lsfind $*);
-}
-function fart() {
-  ls -Art $(lsfind $*);
-}
-function fl() {
-  ls -hl $(lsfind $*);
-}
-function fla() {
-  ls -hlA $(lsfind $*);
-}
-function flr() {
-  ls -hlr $(lsfind $*);
-}
-function flt() {
-  ls -hlt $(lsfind $*);
-}
-function flar() {
-  ls -hlAr $(lsfind $*);
-}
-function flat() {
-  ls -hlAt $(lsfind $*);
-}
-function flrt() {
-  ls -hlrt $(lsfind $*);
-}
-function flart() {
-  ls -hlArt $(lsfind $*);
-}
-function fld() {
-  ls -dhl $(lsfind $* -type d);
-}
-function flda() {
-  ls -dhlA $(lsfind $* -type d);
-}
-function fldr() {
-  ls -dhlr $(lsfind $* -type d);
-}
-function fldt() {
-  ls -dhlt $(lsfind $* -type d);
-}
-function fldar() {
-  ls -dhlAr $(lsfind $* -type d);
-}
-function fldat() {
-  ls -dhlAt $(lsfind $* -type d);
-}
-function fldrt() {
-  ls -dhlrt $(lsfind $* -type d);
-}
-function fldart() {
-  ls -dhlArt $(lsfind $* -type d); }
-
 # quick dir change
 alias cdbin='cd /usr/local/bin'
 alias cdlog='cd /var/log'
@@ -150,6 +71,7 @@ alias freeops='ssh freeops'
 alias freewebdb='ssh freewebdb'
 alias latex='ssh latex'
 alias newlatex='ssh newlatex'
+alias tstportal='ssh tstportal'
 
 # miscellaneous commands
 alias c=clear
@@ -157,26 +79,26 @@ alias pd=pushd
 alias x=exit
 
 # make finger less awkward to use
-function fgr() {
-  finger $* |sed --regexp-extended "s/\\bfinger\\b/fgr/g"
+function fing() {
+  finger "$@" |sed --regexp-extended 's/\bfinger\b/fing/g'
 }
 
 # vim files that match grep pattern
 function grep2vim() {
-  vim $(grep --files-with-matches $*)
+  vim $(grep --files-with-matches --color=never "$@")
 }
 
 # remove a file's contents, creating it if need be
 function truncate() {
-  for file in $*
+  for file in "$@"
   do
-    echo -n >$file
+    echo -n >"$file"
   done
 }
 
 # convert input string to hex
 function str2hex() {
-  echo -n $1 |xxd |tr ' ' "\n" |sed --quiet "/^....$/p" |tr --delete "\n"
+  echo -n "$1" |xxd |tr ' ' "\n" |sed --quiet '/^....$/p' |tr --delete "\n"
 }
 
 # functions to make sure the window title is always [root@]server:pwd and
@@ -193,15 +115,16 @@ function term-set-cols() {
   cols=80
   if [[ $# == 1 ]]
   then
-    cols=$1
+    cols="$1"
   fi
   echo -ne "\e[8;48;${cols}t"
 }
 function cd() {
-  builtin cd $*
+  builtin cd "$@"
   term-set-caption
 }
 function fg() {
+  # no quoting $1 in this function, because it's always an integer
   # give vim and vimdiff the terminal size they need before reviving
   vim=[[ -n $(jobs |grep '\+' |grep --word-regexp 'vim|view') ]]
   vimdiff=[[ -n $(jobs $1 |grep --word-regexp 'vimdiff') ]]
@@ -224,56 +147,56 @@ function pushd() {
   then
     builtin pushd ~ >/dev/null
   else
-    builtin pushd $* >/dev/null
+    builtin pushd "$@" >/dev/null
   fi
   echo :: $(dirs |cut --only-delimited --delimiter=' ' --fields=2-)
   term-set-caption
 }
 function popd() {
-  builtin popd $* >/dev/null
+  builtin popd "$@" >/dev/null
   echo :: $(dirs |cut --only-delimited --delimiter=' ' --fields=2-)
   term-set-caption
 }
 function vim() {
   # relative numbering uses the left four columns, so it needs 84 columns
   term-set-cols 84
-  command vim $*
+  command vim "$@"
   term-set-cols
 }
 function svim() {
   term-set-cols 84
-  sudo $(which vim) $*
+  sudo $(which vim) "$@"
   term-set-cols
 }
 function vimdiff() {
   # relative numbering uses the left six columns of each file, and the middle
   # column is the split separator, so it needs 173 columns
   term-set-cols 173
-  command vimdiff $*
+  command vimdiff "$@"
   term-set-cols
 }
 function svimdiff() {
   term-set-cols 173
-  sudo $(which vimdiff) $*
+  sudo $(which vimdiff) "$@"
   term-set-cols
 }
 function ssh() {
-  command ssh $*
+  command ssh "$@"
   term-set-cols
   term-set-caption
 }
 function su() {
-  command su $*
+  command su "$@"
   term-set-cols
   term-set-caption
 }
 function sudo() {
   # translate `sudo -i` to `sudo su -` on systems that don't support -i
-  if [[ $1 == '-i' && -z $(command sudo --help 2>&1 |grep -- -i) ]]
+  if [[ $1 == '-i' && -z $(command sudo --help |grep -- -i) ]]
   then
     command sudo su -
   else
-    command sudo $*
+    command sudo "$@"
   fi
   term-set-cols
   term-set-caption
