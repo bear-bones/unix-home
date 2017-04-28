@@ -192,7 +192,7 @@ function su() {
 }
 function sudo() {
   # translate `sudo -i` to `sudo su -` on systems that don't support -i
-  if [[ $1 == '-i' && -z $(command sudo --help |grep -- -i) ]]
+  if [[ $1 == '-i' && -z $(command sudo -h |grep -- -i) ]]
   then
     command sudo su -
   else
