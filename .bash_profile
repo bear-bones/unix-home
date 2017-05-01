@@ -79,13 +79,6 @@ then
   source ~/.bashrc
 fi
 
-# server-local settings
-# bash
-if [[ -f ~/.local_profile ]]
-then
-  source ~/.local_profile
-fi
-
 # ssh settings
 rm -f ~/.ssh/config
 if [[ -f ~/.ssh/local_config ]]
@@ -98,6 +91,12 @@ else
   touch ~/.ssh/config
 fi
 chmod 644 ~/.ssh/config
+
+# bash
+if [[ -f ~/.local_profile ]]
+then
+  source ~/.local_profile
+fi
 
 # if there's a CDDIR environment variable, cd to that directory
 if [[ -n $CDDIR ]]
