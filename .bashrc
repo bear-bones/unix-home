@@ -123,6 +123,18 @@ function cd() {
   builtin cd "$@"
   term-set-caption
 }
+function cdprog() {
+  if [[ $# > 0 ]]
+  then
+    user=$1
+  elif [[ $LOGNAME == root ]]
+  then
+    user=$SUDO_USER
+  else
+    user=$LOGNAME
+  fi
+  cd "/shared/programmers/$user"
+}
 function fg() {
   # no quoting $1 in this function, because it's always an integer
   # give vim and vimdiff the terminal size they need before reviving
@@ -156,6 +168,18 @@ function popd() {
   builtin popd "$@" >/dev/null
   echo :: $(dirs |cut --only-delimited --delimiter=' ' --fields=2-)
   term-set-caption
+}
+function pdprog() {
+  if [[ $# > 0 ]]
+  then
+    user=$1
+  elif [[ $LOGNAME == root ]]
+  then
+    user=$SUDO_USER
+  else
+    user=$LOGNAME
+  fi
+  pushd "/shared/programmers/$user"
 }
 function vim() {
   # relative numbering uses the left four columns, so it needs 84 columns
