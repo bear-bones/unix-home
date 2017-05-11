@@ -63,7 +63,7 @@ else
 fi
 export PS2='> '
 # ignore case when globbing
-shopt -s nocaseglob
+shopt -s nocaseglob extglob
 # vi-style command line editing
 set -o vi
 # add ~/bin and current working directory to path
