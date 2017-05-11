@@ -48,10 +48,12 @@ alias lldrt='ls -hlrt --color=always |grep ^d'
 alias lldart='ls -hlArt --color=always |grep ^d'
 
 # quick dir change
-alias cdbin='cd /usr/local/bin'
-alias cdlog='cd /var/log'
-alias pdbin='pushd /usr/local/bin'
-alias pdlog='pushd /var/log'
+export BINDIR=/usr/local/bin
+export LOGDIR=/usr/local/bin
+alias cdbin="cd $BINDIR"
+alias cdlog="cd $LOGDIR"
+alias pdbin="pushd $BINDIR"
+alias pdlog="pushd $LOGDIR"
 
 # ssh aliases
 alias cccdata='ssh cccdata'
