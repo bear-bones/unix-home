@@ -1,3 +1,6 @@
+# clean up garbage files that get dumped in the home directory
+rm -f 1 nohup.out
+
 # colors for grep and ls
 # grep
 grep_color=
