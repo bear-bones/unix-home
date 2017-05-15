@@ -221,13 +221,13 @@ function su() {
 }
 function sudo() {
   # translate `sudo -i` to `sudo su -` on systems that don't support -i
-  if [[ $1 == '-i' && -z $(command sudo -h |grep -- -i) ]]
+  if [[ " $* " =~ \ -i\  && -z $(command sudo -h |grep -- -i) ]]
   then
-    command sudo su --command="cd $(pwd)" --login
+    CDDIR=$(pwd) command sudo su --login
   else
-    if [[ $1 == '-i' ]]
+    if [[ " $* " =~ \ -i\  ]]
     then
-      command sudo -i "cd $(pwd)"
+      CDDIR=$(pwd) command sudo "$@"
     else
       command sudo "$@"
     fi
