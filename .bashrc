@@ -223,9 +223,14 @@ function sudo() {
   # translate `sudo -i` to `sudo su -` on systems that don't support -i
   if [[ $1 == '-i' && -z $(command sudo -h |grep -- -i) ]]
   then
-    command sudo su -
+    command sudo su --command="cd $(pwd)" --login
   else
-    command sudo "$@"
+    if [[ $1 == '-i' ]]
+    then
+      command sudo -i "cd $(pwd)"
+    else
+      command sudo "$@"
+    fi
   fi
   term-set-cols
   term-set-caption
