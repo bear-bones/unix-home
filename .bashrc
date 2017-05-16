@@ -219,18 +219,20 @@ function su() {
   term-set-cols
   term-set-caption
 }
+# modify interactive sudo (sudo -i) to make it pass along the current directory
+# as CDDIR, and shim -i with `sudo su -` on boxes that don't support -i
 function sudo() {
-  # translate `sudo -i` to `sudo su -` on systems that don't support -i
-  if [[ " $* " =~ \ -i\  && -z $(command sudo -h |grep -- -i) ]]
+  if [[ $1 == -i ]]
   then
-    CDDIR=$(pwd) command sudo su --login
-  else
-    if [[ " $* " =~ \ -i\  ]]
+    if command sudo -h |grep --quiet -- -i
     then
-      CDDIR=$(pwd) command sudo "$@"
+      command sudo "$@" CDDIR=$(pwd)
     else
-      command sudo "$@"
+      command sudo /bin/su --login -- root -c \
+        "CDDIR=$(pwd) PROFILE_SOURCED= SUDO_USER=$LOGNAME bash --login"
     fi
+  else
+    command sudo "$@"
   fi
   term-set-cols
   term-set-caption
