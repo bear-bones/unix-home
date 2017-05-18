@@ -52,11 +52,14 @@ alias lldart='ls -hlArt --color=always |grep ^d'
 
 # quick dir change
 export BINDIR=/usr/local/bin
-export LOGDIR=/usr/local/bin
+export SLOGDIR=/shared/log
+export VLOGDIR=/var/log
 alias cdbin="cd $BINDIR"
-alias cdlog="cd $LOGDIR"
+alias cdslog="cd $SLOGDIR"
+alias cdvlog="cd $VLOGDIR"
 alias pdbin="pushd $BINDIR"
-alias pdlog="pushd $LOGDIR"
+alias pdslog="pushd $SLOGDIR"
+alias pdvlog="pushd $VLOGDIR"
 
 # ssh aliases
 alias cccdata='ssh cccdata'
