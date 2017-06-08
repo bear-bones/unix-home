@@ -80,6 +80,7 @@ alias freewebdb='ssh freewebdb'
 alias latex='ssh latex'
 alias newlatex='ssh newlatex'
 alias tstportal='ssh tstportal'
+alias validator='ssh validator'
 
 # miscellaneous commands
 alias c=clear
