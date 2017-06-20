@@ -78,7 +78,6 @@ alias freefin='ssh freefin'
 alias freeops='ssh freeops'
 alias freewebdb='ssh freewebdb'
 alias latex='ssh latex'
-alias newlatex='ssh newlatex'
 alias tstportal='ssh tstportal'
 alias validator='ssh validator'
 
