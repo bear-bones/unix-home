@@ -63,6 +63,7 @@ alias pdvlog="pushd $VLOGDIR"
 
 # ssh aliases
 alias cccdata='ssh cccdata'
+alias ccdatesting='ssh ccdatesting'
 alias checkdev='ssh checkdev'
 alias chiweb='ssh chiweb'
 alias fms001='ssh fms001'
@@ -78,8 +79,8 @@ alias freefin='ssh freefin'
 alias freeops='ssh freeops'
 alias freewebdb='ssh freewebdb'
 alias latex='ssh latex'
+alias sophos='ssh sophos'
 alias tstportal='ssh tstportal'
-alias validator='ssh validator'
 
 # miscellaneous commands
 alias c=clear
