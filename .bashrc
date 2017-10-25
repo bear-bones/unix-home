@@ -86,6 +86,7 @@ alias tstportal='ssh tstportal'
 alias c=clear
 alias pd=pushd
 alias x=exit
+alias y='echo -n'  # make y a noop
 
 # make finger less awkward to use
 function fing() {
