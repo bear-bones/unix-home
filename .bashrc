@@ -133,17 +133,45 @@ function cd() {
   builtin cd "$@"
   term-set-caption
 }
-function cdprog() {
+function getprogdir() {
+  progdir=/shared/programmers
+  # get working user name
   if [[ $# > 0 ]]
   then
-    user=$1
+    user="$1"
   elif [[ $LOGNAME == root ]]
   then
     user=$SUDO_USER
-  else
+  elif [[ -n $LOGNAME ]]
+  then
     user=$LOGNAME
+  else
+    user=$(whoami)
   fi
-  cd "/shared/programmers/$user"
+  if [[ -z "$user" ]]
+  then
+    echo "No user!" >&2
+    return 1
+  fi
+  # check for directory existence and return directory
+  if [[ ! -d $progdir ]]
+  then
+    echo "No programmers directory!" >&2
+    return 1
+  fi
+  if [[ ! -d "$progdir/$user" ]]
+  then
+    echo "No programmers directory for $user!" >&2
+    return 1
+  fi
+  echo "$progdir/$user"
+}
+function cdprog() {
+  dir="$(getprogdir "$@")"
+  if [[ $? == 0 ]]
+  then
+    cd $dir
+  fi
 }
 function fg() {
   # no quoting $1 in this function, because it's always an integer
@@ -171,25 +199,26 @@ function pushd() {
   else
     builtin pushd "$@" >/dev/null
   fi
-  echo :: $(dirs |cut --only-delimited --delimiter=' ' --fields=2-)
-  term-set-caption
+  if [[ $? == 0 ]]
+  then
+    echo :: $(dirs |cut --only-delimited --delimiter=' ' --fields=2-)
+    term-set-caption
+  fi
 }
 function popd() {
   builtin popd "$@" >/dev/null
-  echo :: $(dirs |cut --only-delimited --delimiter=' ' --fields=2-)
-  term-set-caption
+  if [[ $? == 0 ]]
+  then
+    echo :: $(dirs |cut --only-delimited --delimiter=' ' --fields=2-)
+    term-set-caption
+  fi
 }
 function pdprog() {
-  if [[ $# > 0 ]]
+  dir="$(getprogdir "$@")"
+  if [[ $? == 0 ]]
   then
-    user=$1
-  elif [[ $LOGNAME == root ]]
-  then
-    user=$SUDO_USER
-  else
-    user=$LOGNAME
+    pushd $dir
   fi
-  pushd "/shared/programmers/$user"
 }
 function vim() {
   # relative numbering uses the left four columns, so it needs 84 columns
