@@ -258,7 +258,7 @@ function su() {
 function sudo() {
   if [[ $1 == -i ]]
   then
-    if command sudo -h |grep --quiet -- -i
+    if command sudo -h 2>&1 |command grep --quiet -- -i
     then
       command sudo "$@" CDDIR=$(pwd)
     else
