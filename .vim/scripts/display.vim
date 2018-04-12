@@ -21,10 +21,11 @@ set title
 set relativenumber
 
 " line wrapping
+set nowrap
+set list listchars=precedes:<,extends:>
 let &showbreak = '  ↳ '
 set cpoptions+=n
 set display=lastline
-set wrap
 " \wrap toggles line wrapping
 function! ToggleWrap()
   if &wrap
