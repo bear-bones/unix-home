@@ -34,9 +34,9 @@ function! ToggleWrap()
     set wrap
   endif
 endfunction
-inoremap <silent> <leader>wrap <c-o>:call ToggleWrap()<cr>
-nnoremap <silent> <leader>wrap :call ToggleWrap()<cr>
-vnoremap <silent> <leader>wrap :call ToggleWrap()<cr>
+inoremap <silent> <leader>wrp <c-o>:call ToggleWrap()<cr>
+nnoremap <silent> <leader>wrp :call ToggleWrap()<cr>
+vnoremap <silent> <leader>wrp :call ToggleWrap()<cr>
 
 " show line of current cursor (in current window only)
 set cursorline
