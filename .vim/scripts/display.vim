@@ -22,7 +22,7 @@ set relativenumber
 
 " line wrapping
 set nowrap
-set list listchars=precedes:<,extends:>
+set list listchars=tab:\ \ ,precedes:<,extends:>
 let &showbreak = '  ↳ '
 set cpoptions+=n
 set display=lastline
