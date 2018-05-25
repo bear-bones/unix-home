@@ -81,9 +81,12 @@ fi
 
 # ssh settings
 rm -f ~/.ssh/config
-if [[ -f ~/.ssh/local_config ]]
+if [[ -f ~/.ssh/local_config && -f ~/.ssh/global_config ]]
 then
-  cat ~/.ssh/global_config ~/.ssh/local_config >~/.ssh/config
+  cat ~/.ssh/local_config ~/.ssh/global_config >~/.ssh/config
+elif [[ -f ~/.ssh/local_config ]]
+then
+  cp ~/.ssh/local_config ~/.ssh/config
 elif [[ -f ~/.ssh/global_config ]]
 then
   cp ~/.ssh/global_config ~/.ssh/config
