@@ -11,6 +11,7 @@ source ~/.vim/scripts/motion.vim
 source ~/.vim/scripts/readfile.vim
 source ~/.vim/scripts/save.vim
 source ~/.vim/scripts/splits.vim
+source ~/.vim/scripts/netrw.vim
 
 filetype indent on
 filetype plugin on
