@@ -458,6 +458,8 @@ syn keyword ProgressXML owner-document
 syn keyword ProgressXML remove-attribute
 syn keyword ProgressXML remove-child
 syn keyword ProgressXML replace-child
+syn keyword ProgressXML serialize-name
+syn keyword ProgressXML serialize-hidden
 syn keyword ProgressXML set-attribute
 syn keyword ProgressXML set-attribute-node
 syn keyword ProgressXML subtype

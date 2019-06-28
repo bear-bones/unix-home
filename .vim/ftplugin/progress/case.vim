@@ -1,6 +1,7 @@
 " this file defines progress keyword capitalization and common function camel-
 " casing
 
+setlocal iskeyword+=-
 let s:autocap=0
 
 
