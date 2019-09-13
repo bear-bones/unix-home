@@ -240,12 +240,12 @@ function pdprog() {
 }
 function vim() {
   # relative numbering uses the left four columns, so it needs 84 columns
-  term-set-cols 117
+  term-set-cols 84
   command vim "$@"
   term-set-cols
 }
 function svim() {
-  term-set-cols 117
+  term-set-cols 84
   sudo $(which vim) "$@"
   term-set-cols
 }
